@@ -1,6 +1,5 @@
 window.onload = () => {
     document.getElementsByTagName("body")[0].onresize = resizeHeight;
-
     resizeHeight();
 };
 
