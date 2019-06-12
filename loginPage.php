@@ -45,30 +45,6 @@
               href="#">News</a>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto justify-content-end">
-          <li class="nav-item active d-none d-lg-block">
-            <button class="px-3 nav-link btn btn-sm bg-info text-left dropdown-toggle"
-              href="#" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">User</button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="btn btn-light w-100 text-left" href="#">Help</a>
-                <a class="btn btn-light w-100 text-left" href="#">Accout settings</a>
-                <a class="btn btn-light w-100 text-left" href="#">Log out</a>
-              </div>
-          </li>
-          <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
-              href="#">Help</a>
-          </li>
-          <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
-              href="#">Accout settings</a>
-          </li>
-          <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
-              href="#">Log out</a>
-          </li>
-        </ul>
       </div>
     </nav>
   </header>
@@ -78,13 +54,15 @@
     <div class='w-100 mx-0 row py-5 justify-content-around'>
       <div class='col-sm-10 col-md-8 col-lg-6 px-5 py-5 bg-dark'>
         <p class='py-4 h1'>&#9815;</p>
+
         <form action='login.php' method='post' class='col-sm-9 col-md-8 col-lg-7 mx-auto'>
-          <input type="text" name="login" placeholder='username'
+          <input type="text" name="login" placeholder='username' autofocus
             class='mx-auto my-2 form-control'>
           <input type="password" name="password" placeholder='password'
             class='mx-auto my-2 form-control'>
           <input type="submit" value="log in" class='w-100 px-5 my-1 btn btn-info'>
         </form>
+
         <a class="px-3 my-3 btn bg-transparent text-left text-info"
           href="#">You forgot password ?</a>
       </div>
