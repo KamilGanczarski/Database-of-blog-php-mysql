@@ -64,7 +64,7 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="btn btn-light w-100 text-left" href="#">Help</a>
                 <a class="btn btn-light w-100 text-left" href="#">Accout settings</a>
-                <a class="btn btn-light w-100 text-left" href="logout.php">Log out</a>
+                <a class="btn btn-light w-100 text-left" href="login/logout.php">Log out</a>
               </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loginBool) echo 'd-lg-block'; ?>">
@@ -85,7 +85,7 @@
           </li>
           <li class="nav-item active <?php if($loginBool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
-              href="logout.php">Sign out</a>
+              href="login/logout.php">Sign out</a>
           </li>
         </ul>
       </div>

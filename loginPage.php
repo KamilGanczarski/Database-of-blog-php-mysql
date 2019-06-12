@@ -24,7 +24,7 @@
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
             <form class="form-inline py-3 py-lg-0" action='index.php' method='get'>
-              <input class="form-control w-100 mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control w-100 mr-sm-2" type="search" placeholder="Search">
               <input class="d-none" type="submit">
             </form>
           </li>
@@ -55,7 +55,7 @@
       <div class='col-sm-10 col-md-8 col-lg-6 px-5 py-5 bg-dark'>
         <p class='py-4 h1'>&#9815;</p>
 
-        <form action='login.php' method='post' class='col-sm-9 col-md-8 col-lg-7 mx-auto'>
+        <form action='login/login.php' method='post' class='col-sm-9 col-md-8 col-lg-7 mx-auto'>
           <input type="text" name="login" placeholder='username' autofocus
             class='mx-auto my-2 form-control'>
           <input type="password" name="password" placeholder='password'

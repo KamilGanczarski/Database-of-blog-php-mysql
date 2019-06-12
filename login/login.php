@@ -1,6 +1,6 @@
 <?php
 
-require_once 'users.php';
+require_once '../fetch_data/fetch.php';
 
 class Login {
   public $userId = 0;
@@ -54,8 +54,8 @@ if($Login->checkUser()) {
   session_start();
   $_SESSION['login'] = $Login->username;
   $_SESSION['userId'] = $Login->userId;
-  header('Location: index.php');
+  header('Location: ../index.php');
 }
 else {
-  header('Location: loginPage.php');
+  header('Location: ../loginPage.php');
 }
