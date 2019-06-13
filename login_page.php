@@ -14,7 +14,7 @@
 <body class='w-100 container-fluid m-0 p-0 row bg-black text-center'>
 
   <header class='col-sm-12 row mx-0 bg-dark justify-content-between'>
-    <nav class="w-100 navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand btn bg-transparent text-info" href="index.php">Home</a>
       <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -24,13 +24,14 @@
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
             <form class="form-inline py-3 py-lg-0" action='index.php' method='get'>
-              <input class="form-control w-100 mr-sm-2" type="search" placeholder="Search">
+              <input type="search" placeholder="Search" aria-label="Search"
+                class="form-control w-100 mr-sm-2 bg-dark border-info text-light">
               <input class="d-none" type="submit">
             </form>
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
-              href="#">About</a>
+              href="index.php">News</a>
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
@@ -38,51 +39,43 @@
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
-              href="#">Setting</a>
-          </li>
-          <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
-              href="#">News</a>
+              href="#">About</a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <main class='container-fluid row mx-auto text-light'>
-
+  <main class='container-fluid row px-0 mx-auto text-light'>
     <div class='w-100 mx-0 row py-5 justify-content-around'>
-      <div class='col-sm-10 col-md-8 col-lg-6 px-5 py-5 bg-dark'>
-        <p class='py-4 h1'>&#9815;</p>
 
-        <form action='login/login.php' method='post' class='col-sm-9 col-md-8 col-lg-7 mx-auto'>
-          <input type="text" name="login" placeholder='username' autofocus
-            class='mx-auto my-2 form-control'>
-          <input type="password" name="password" placeholder='password'
-            class='mx-auto my-2 form-control'>
-          <input type="submit" value="log in" class='w-100 px-5 my-1 btn btn-info'>
+      <div class='loginWindow p-5 bg-dark rounded'>
+        <p class='h4 text-info'>Welcome back!</p>
+        <p class='pb-4 text-muted'>We're so excited to see you again!</p>
+
+        <form action='php/login/login.php' method='post' class='col-sm-12 mx-auto'>
+          <p class="p-1 m-0 text-left text-muted">Email</p>
+          <input type="text" name="login" autofocus
+            class='mx-auto mb-3 form-control bg-dark border-info text-light'>
+
+          <p class="p-1 m-0 text-left text-muted">Password</p>
+          <input type="password" name="password"
+            class='mx-auto form-control bg-dark border-info text-light'>
+
+          <a class="w-100 px-1 mb-2 btn bg-transparent text-left text-info"
+            href="#">You forgot password ?</a>
+          <input type="submit" value="Sign in" class='w-100 px-5 my-1 btn btn-info'>
+
+          <div class="w-100 px-1 bg-transparent text-left">
+            <span class='text-muted'>You haven't an account?</span>
+            <a href='#' class='btn text-info px-0'>Register</a>
+          </div>
         </form>
-
-        <a class="px-3 my-3 btn bg-transparent text-left text-info"
-          href="#">You forgot password ?</a>
       </div>
-    </div>
 
+    </div>
   </main>
-
-  <footer class='container-fluid mx-auto row' style='position: relative; bottom: 0;'>
-    <div class="w-100 mx-0 row justify-content-center text-primary">
-      <a class="px-3 py-2 btn bg-transparent text-left text-info"
-        href="#">About</a>
-      <a class="px-3 py-2 btn bg-transparent text-left text-info"
-        href="#">Setting</a>
-      <a class="px-3 py-2 btn bg-transparent text-left text-info"
-        href="#">Contacts</a>
-    </div>
-    <p class='col-md-12 py-4 my-0 mx-auto text-info'>
-      Page written in JavaScript and PHP
-    </p>
-  </footer>
+  <?php require_once 'php/parts_of_a_website/footer.php'; ?>
 
   <script src='js/render.js'></script>
   <script src='js/resizePage.js'></script>

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'connection.php';
+require 'connection.php';
 
 class Fetch {
   private $result;
@@ -12,9 +12,8 @@ class Fetch {
   private $tableData = [];
 
   public function __construct() {
-    global $connection, $databasesTable;
+    global $connection;
     $this->connection = $connection;
-    $this->databasesTable = $databasesTable;
   }
 
   private function createConnection($query) {
@@ -57,6 +56,3 @@ class Fetch {
     return $this->result;
   }
 }
-
-$Fetch = new Fetch;
-$users = $Fetch->fetchData('SELECT * FROM users');

@@ -1,6 +1,8 @@
 <?php
 
 require_once '../fetch_data/fetch.php';
+$Fetch = new Fetch;
+$users = $Fetch->fetchData('SELECT * FROM users');
 
 class Login {
   public $userId = 0;
@@ -54,8 +56,8 @@ if($Login->checkUser()) {
   session_start();
   $_SESSION['login'] = $Login->username;
   $_SESSION['userId'] = $Login->userId;
-  header('Location: ../index.php');
+  header('Location: ../../index.php');
 }
 else {
-  header('Location: ../loginPage.php');
+  header('Location: ../../login_page.php');
 }

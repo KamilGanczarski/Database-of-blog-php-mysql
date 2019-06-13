@@ -1,3 +1,11 @@
 .bg-black {
-  background: #181818;    
+  background: #181818;
+}
+
+.loginWindow {
+  width: 500px;
+}
+
+.bg-colors {
+  background-image: linear-gradient(to right,#ff8a00,#da1b60);
 }
