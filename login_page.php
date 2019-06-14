@@ -76,8 +76,6 @@
     </div>
   </main>
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>
-
-  <script src='js/render.js'></script>
-  <script src='js/resizePage.js'></script>
+  <?php if($loginBool) echo '<script src="js/auto_sign_out.js"></script>'; ?>
 </body>
 </html>

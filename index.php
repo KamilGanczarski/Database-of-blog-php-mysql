@@ -59,7 +59,7 @@
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end">
           <li class="nav-item active d-none <?php if($loginBool) echo 'd-lg-block'; ?>">
-            <button class="px-3 nav-link btn btn-sm bg-info text-left dropdown-toggle"
+            <button class="px-3 nav-link btn text-left dropdown-toggle"
               href="#" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><?php if($loginBool) echo $username; ?></button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -69,7 +69,7 @@
               </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loginBool) echo 'd-lg-block'; ?>">
-            <a class="px-3 nav-link btn btn-sm bg-info text-left"
+            <a class="px-3 nav-link btn text-left"
               href="login_page.php">sign in</a>
           </li>
           <li class="nav-item active d-lg-none">
@@ -108,8 +108,6 @@
   </main>
 
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>
-
-  <script src='js/render.js'></script>
-  <script src='js/resizePage.js'></script>
+  <?php if($loginBool) echo '<script src="js/auto_sign_out.js"></script>'; ?>
 </body>
 </html>

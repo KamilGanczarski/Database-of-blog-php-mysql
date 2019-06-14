@@ -12,3 +12,5 @@
       Page written in JavaScript and PHP
     </p>
   </footer>
+
+  <script src='js/resizePage.js'></script>

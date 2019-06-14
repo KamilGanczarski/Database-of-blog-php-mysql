@@ -62,7 +62,7 @@
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end">
           <li class="nav-item active d-none <?php if($loginBool) echo 'd-lg-block'; ?>">
-            <button class="px-3 nav-link btn btn-sm bg-info text-left dropdown-toggle"
+            <button class="px-3 nav-link btn text-left dropdown-toggle"
               href="#" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><?php if($loginBool) echo $username; ?></button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -102,12 +102,13 @@
       <div class='col-sm-12 bg-dark p-4 mt-3 text-left'>
         <p class='h5'>Create post</p>
 
-        <form action="php/blog configuration/configuration.php" method="post">
+        <form action="php/blog configuration/configuration.php" method="post" id='add_post'>
           <p class="p-1 m-0 text-left text-muted">Post title</p>
           <input type="text" name="post_title"
             class='mx-auto mb-3 form-control bg-dark border-info text-light'>
           <p class="p-1 m-0 text-left text-muted">Post Content</p>
-          <textarea form='add_post' rows="13" class='w-100 p-2 bg-dark border-info text-light'></textarea>
+          <textarea form='add_post' name='post_content' rows="13"
+            class='w-100 p-2 bg-dark border-info text-light'></textarea>
           <div class="w-100 text-right">
             <input type="submit" value="Create" class='px-5 my-1 btn btn-info'>
           </div>
@@ -118,8 +119,6 @@
   </main>
 
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>
-
-  <script src='js/render.js'></script>
-  <script src='js/resizePage.js'></script>
+  <?php if($loginBool) echo '<script src="js/auto_sign_out.js"></script>'; ?>
 </body>
 </html>
