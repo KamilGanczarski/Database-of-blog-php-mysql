@@ -3,13 +3,14 @@
 require 'connection.php';
 
 class Fetch {
-  private $result;
-  private $error;
   private $query;
+  private $error;
+  private $queryType;
   // All keys of table
   private $tableKeys = [];
   // Array
   private $tableData = [];
+  private $result = [];
 
   public function __construct() {
     global $connection;
@@ -31,28 +32,33 @@ class Fetch {
       ));
     }
     else {
-      if($record = mysqli_fetch_object($this->result)) {
-        $this->tableKeys = (array) $record;
-        $this->tableKeys = array_keys($this->tableKeys);
-        $this->tableData = array(array_values((array) $record));
-      }
+      $this->queryType = explode(' ', trim($this->query));
+      $this->queryType = $this->queryType[0];
 
-      if ($record = mysqli_fetch_all($this->result)) {
-        $this->tableData = array_merge($this->tableData, $record);
+      if($this->queryType === 'SELECT') {
+        $this->fetchData();
       }
-
-      mysqli_free_result($this->result);
     }
-    mysqli_close($this->connection);
+    // mysqli_close($this->connection);
   }
 
-
-  public function fetchData($query) {
-    $this->createConnection($query);
-    $this->result = [];
-    for($i=0; $i<count($this->tableData); $i++) {
-      array_push($this->result, array_combine($this->tableKeys, $this->tableData[$i]));
+  private function fetchData() {
+    if($record = mysqli_fetch_object($this->result)) {
+      $this->tableKeys = (array) $record;
+      $this->tableKeys = array_keys($this->tableKeys);
+      $this->tableData = array(array_values((array) $record));
     }
+    if ($record = mysqli_fetch_all($this->result)) {
+    $this->result = [];
+      $this->tableData = array_merge($this->tableData, $record);
+      for($i=0; $i<count($this->tableData); $i++) {
+        array_push($this->result, array_combine($this->tableKeys, $this->tableData[$i]));
+      }
+    }
+  }
+
+  public function fetch($query) {
+    $this->createConnection($query);
     return $this->result;
   }
 }

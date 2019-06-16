@@ -55,7 +55,7 @@
 
         <form action='php/login/login.php' method='post' class='col-sm-12 mx-auto'>
           <p class="p-1 m-0 text-left text-muted">Email</p>
-          <input type="text" name="login" autofocus
+          <input type="text" name="username" autofocus
             class='mx-auto mb-3 form-control bg-dark border-info text-light'>
 
           <p class="p-1 m-0 text-left text-muted">Password</p>

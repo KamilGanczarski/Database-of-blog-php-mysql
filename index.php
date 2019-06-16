@@ -94,17 +94,15 @@
   </header>
 
   <main class='container-fluid row mx-auto text-light'>
-
     <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 col-lg-3 bg-dark p-4 mt-3 text-left'>
 
       </div>
 
-      <div class='col-sm-12 col-lg-8 bg-dark p-4 mt-3'>
-
+      <div class='col-sm-12 col-lg-8 p-0 mt-3'>
+        <?php require_once 'php/parts_of_a_website/blog_content.php'; ?>
       </div>
     </div>
-
   </main>
 
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>

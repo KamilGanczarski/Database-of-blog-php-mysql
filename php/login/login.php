@@ -2,7 +2,7 @@
 
 require_once '../fetch_data/fetch.php';
 $Fetch = new Fetch;
-$users = $Fetch->fetchData('SELECT * FROM users');
+$users = $Fetch->fetch('SELECT * FROM Users');
 
 class Login {
   public $userId = 0;
@@ -32,7 +32,7 @@ class Login {
   }
 
   public function checkUser() {
-    $this->username = $_POST['login'];
+    $this->username = $_POST['username'];
     $this->password = $_POST['password'];
     $this->loginBool = $this->checkIfUserExist();
 
