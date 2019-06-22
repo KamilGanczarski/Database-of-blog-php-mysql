@@ -8,7 +8,7 @@ class Fetch {
   private $queryType;
   // All keys of table
   private $tableKeys = [];
-  // Array
+  // Content
   private $tableData = [];
   private $result = [];
 
@@ -23,8 +23,8 @@ class Fetch {
     mysqli_query($this->connection, 'SET NAMES utf8');
     if(!($this->result = mysqli_query($this->connection, $this->query))) {
       $this->tableKeys = array(
-        "Typ błędu",
-        "Opis błędu"
+        'Typ błędu',
+        'Opis błędu'
       );
       $this->tableData = array(array(
         'Problem z zapytaniem mysql',
@@ -48,8 +48,8 @@ class Fetch {
       $this->tableKeys = array_keys($this->tableKeys);
       $this->tableData = array(array_values((array) $record));
     }
-    if ($record = mysqli_fetch_all($this->result)) {
-    $this->result = [];
+    if($record = mysqli_fetch_all($this->result)) {
+      $this->result = [];
       $this->tableData = array_merge($this->tableData, $record);
       for($i=0; $i<count($this->tableData); $i++) {
         array_push($this->result, array_combine($this->tableKeys, $this->tableData[$i]));

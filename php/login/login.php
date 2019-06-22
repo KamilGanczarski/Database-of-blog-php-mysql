@@ -8,13 +8,15 @@ class Login {
   public $userId = 0;
   public $username = '';
   private $password = '';
-  private $loginBool = '';
+  private $loggedBool = '';
   private $users = [];
 
-  private function checkIfUserExist() {
+  public function __construct() {
     global $users;
     $this->users = $users;
+  }
 
+  private function checkIfUserExist() {
     for($i=0; $i<count($this->users); $i++) {
       if($this->users[$i]['username'] === $this->username) {
         $this->userId = $i;
@@ -34,11 +36,11 @@ class Login {
   public function checkUser() {
     $this->username = $_POST['username'];
     $this->password = $_POST['password'];
-    $this->loginBool = $this->checkIfUserExist();
+    $this->loggedBool = $this->checkIfUserExist();
 
-    if(!is_null($this->loginBool)) {
-      $this->loginBool = $this->checkPassword();
-      if($this->loginBool) {
+    if(!is_null($this->loggedBool)) {
+      $this->loggedBool = $this->checkPassword();
+      if($this->loggedBool) {
         return true;
       } else {
         return false;
@@ -59,5 +61,7 @@ if($Login->checkUser()) {
   header('Location: ../../index.php');
 }
 else {
-  header('Location: ../../login_page.php');
+  session_start();
+  $_SESSION['msg'] = 'Incorrect username or password.';
+  header('Location: ../../login.php');
 }
