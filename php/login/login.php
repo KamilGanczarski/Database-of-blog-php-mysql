@@ -20,7 +20,8 @@ class Login {
     for($i=0; $i<count($this->users); $i++) {
       if($this->users[$i]['username'] === $this->username) {
         $this->userId = $i;
-        return $this->users[$i]['username'];
+        $this->username = $this->users[$i]['username'];
+        return true;
       }
     }
   }
@@ -33,34 +34,36 @@ class Login {
     }
   }
 
+  private function correctLogin() {
+    session_start();
+    $_SESSION['login'] = $this->username;
+    $_SESSION['userId'] = $this->userId;
+    header('Location: ../../index.php');
+  }
+
+  private function incorrectLogin() {
+    session_start();
+    $_SESSION['msg'] = 'Incorrect username or password.';
+    header('Location: ../../login.php');
+  }
+
   public function checkUser() {
     $this->username = $_POST['username'];
     $this->password = $_POST['password'];
     $this->loggedBool = $this->checkIfUserExist();
 
-    if(!is_null($this->loggedBool)) {
+    if($this->loggedBool) {
       $this->loggedBool = $this->checkPassword();
       if($this->loggedBool) {
-        return true;
+        $this->correctLogin();
       } else {
-        return false;
+        $this->incorrectLogin();
       }
     } else {
-      return false;
+      $this->incorrectLogin();
     }
   }
 }
 
 $Login = new Login;
 $Login->checkUser();
-
-if($Login->checkUser()) {
-  session_start();
-  $_SESSION['login'] = $Login->username;
-  $_SESSION['userId'] = $Login->userId;
-  header('Location: ../../index.php');
-} else {
-  session_start();
-  $_SESSION['msg'] = 'Incorrect username or password.';
-  header('Location: ../../login.php');
-}
