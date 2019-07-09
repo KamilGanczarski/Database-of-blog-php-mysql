@@ -24,12 +24,12 @@ INSERT INTO Users(id, username, password) values
   (3, 'admin1', 'admin1');
 
 INSERT INTO Blog_content(id, username, create_date, title, content) values
-  (1, 'admin', CURRENT_TIMESTAMP,
+  (1, 'admin', '2019-06-16',
     'Blog about JavaScript',
   'Often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification.'),
-  (2, 'admin0', CURRENT_TIMESTAMP,
-    'Blog about JavaScript',
-    'Often abbreviated as JS, is a high-level, interpreted programming language that conforms to the ECMAScript specification.');
+  (2, 'admin0', '2019-06-17',
+    'Blog about Python',
+    'Python is an advanced programming language that is interpreted, object-oriented and built on flexible and robust semantics.');
 
 show databases;
 

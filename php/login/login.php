@@ -59,8 +59,7 @@ if($Login->checkUser()) {
   $_SESSION['login'] = $Login->username;
   $_SESSION['userId'] = $Login->userId;
   header('Location: ../../index.php');
-}
-else {
+} else {
   session_start();
   $_SESSION['msg'] = 'Incorrect username or password.';
   header('Location: ../../login.php');

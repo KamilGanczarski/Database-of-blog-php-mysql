@@ -46,19 +46,19 @@
             </form>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="index.php">News</a>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">Repository</a>
           </li>
           <?php if($loggedBool) echo '<li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="configuration_page.php">Configure</a>
           </li>'; ?>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">About</a>
           </li>
         </ul>
@@ -102,20 +102,30 @@
   <main class='container-fluid row mx-auto text-light'>
     <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 col-lg-3 bg-dark p-4 mt-3 text-left'>
-        <p class='px-2'>History :</p>
-        <a href="" class='text-info'>Today</a><br>
-        <a href="" class='text-info'>Yesterday</a><br>
-        <a href="" class='text-info'>Last 7 days</a><br>
-        <a href="" class='text-info'>This month</a><br>
+        <p class='px-1 mb-3'>History</p>
+        <input type="text" value="" class='form-control w-100 mb-1 bg-dark border-info text-light'>
+        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>Today</a><br>
+        <a href="" class='px-1 btn btn-sm  bg-transparent text-info'>Yesterday</a><br>
+        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>Last 7 days</a><br>
+        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>This month</a><br>
       </div>
 
       <div class='col-sm-12 col-lg-8 p-0 mt-3'>
-        <?php require_once 'php/parts_of_a_website/blog_content.php'; ?>
+        <?php
+          require_once 'php/parts_of_a_website/blog_content.php';
+          $Blog_content = new Blog_content($loggedBool);
+          echo $Blog_content->return_html();
+        ?>
       </div>
     </div>
   </main>
 
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>
-  <?php if($loggedBool) echo '<script src="js/auto_sign_out.js"></script>'; ?>
+  <?php
+    if($loggedBool) {
+      echo '<script src="js/auto_sign_out.js"></script>';
+      echo '<script src="js/remove_post.js"></script>';
+    }
+  ?>
 </body>
 </html>

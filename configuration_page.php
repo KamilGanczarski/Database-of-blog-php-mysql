@@ -7,8 +7,7 @@
     $username = $_SESSION['login'];
     $userId = $_SESSION['userId'];
     $loggedBool = true;
-  }
-  else {
+  } else {
     header('Location: login.php');
   }
 ?>
@@ -98,12 +97,11 @@
   </header>
 
   <main class='container-fluid row mx-auto text-light'>
-
     <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 bg-dark p-4 mt-3 text-left'>
         <p class='h5'>Create post</p>
 
-        <form action="php/blog configuration/configuration.php" method="post" id='add_post'>
+        <form action="php/blog configuration/add_post.php" method="post" id='add_post'>
           <p class="p-1 m-0 text-left text-muted">Post title</p>
           <input type="text" name="post_title" maxlength='255'
             class='mx-auto mb-3 form-control bg-dark border-info text-light'>
@@ -116,7 +114,6 @@
         </form>
       </div>
     </div>
-
   </main>
 
   <?php require_once 'php/parts_of_a_website/footer.php'; ?>

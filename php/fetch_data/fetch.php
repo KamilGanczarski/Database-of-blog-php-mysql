@@ -30,8 +30,7 @@ class Fetch {
         'Problem z zapytaniem mysql',
         'BŁĄD: problem z zapytaniem "'. $this->query. '".'
       ));
-    }
-    else {
+    } else {
       $this->queryType = explode(' ', trim($this->query));
       $this->queryType = $this->queryType[0];
 
