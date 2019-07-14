@@ -41,12 +41,16 @@ class Fetch {
     // mysqli_close($this->connection);
   }
 
+  /*
+   * Create an array of objects
+   */
   private function fetchData() {
     if($record = mysqli_fetch_object($this->result)) {
       $this->tableKeys = (array) $record;
       $this->tableKeys = array_keys($this->tableKeys);
       $this->tableData = array(array_values((array) $record));
     }
+
     if($record = mysqli_fetch_all($this->result)) {
       $this->result = [];
       $this->tableData = array_merge($this->tableData, $record);

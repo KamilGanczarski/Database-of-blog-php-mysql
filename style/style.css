@@ -10,6 +10,16 @@
   height: 480px;
 }
 
+.formSearchInput + .inputWidth {
+  width: 0px;
+  -webkit-transition: width .35s ease-in-out;
+  transition: width .35s ease-in-out;
+}
+
+.formSearchInput:focus + .inputWidth {
+  width: 300px;
+}
+
 .lds-dual-ring {
   display: inline-block;
   width: 100px;

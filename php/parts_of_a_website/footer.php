@@ -9,7 +9,7 @@
         href="index.php">Contacts</a>
     </div>
     <p class='col-md-12 py-4 my-0 mx-auto text-info'>
-      Page written in JavaScript and PHP
+      Page written in PHP and JavaScript
     </p>
   </footer>
 

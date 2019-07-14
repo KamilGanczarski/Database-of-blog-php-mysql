@@ -26,29 +26,31 @@
   <header class='col-sm-12 row mx-0 bg-dark justify-content-between'>
     <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-dark">
       <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
-      <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
-            <form action='index.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" placeholder="Search" aria-label="Search"
-                class="form-control w-100 mr-sm-2 bg-dark border-info text-light">
+            <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
+              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+                class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
+              <div class="inputWidth"></div>
+              <input type="text" name="postFilter" class='postFilter d-none'>
               <input type="submit" class="d-none">
             </form>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="index.php">News</a>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">Repository</a>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">About</a>
           </li>
         </ul>
@@ -93,6 +95,9 @@
       </div>
     </div>
   </main>
-  <?php require_once 'php/parts_of_a_website/footer.php'; ?>
+  <?php
+    require_once 'php/parts_of_a_website/footer.php';
+    echo '<script src="js/query_to_PHP.js"></script>';
+  ?>
 </body>
 </html>

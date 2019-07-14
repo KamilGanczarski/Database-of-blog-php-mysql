@@ -7,8 +7,10 @@
     $username = $_SESSION['login'];
     $userId = $_SESSION['userId'];
     $loggedBool = true;
-  } else {
-    header('Location: login.php');
+  }
+
+  if(isset($_SESSION['msg'])) {
+    $msg = $_SESSION['msg'];
   }
 ?>
 <!DOCTYPE html>
@@ -30,41 +32,44 @@
   <header class='col-sm-12 row mx-0 bg-dark justify-content-between'>
     <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand btn bg-transparent text-info" href="index.php">Home</a>
-      <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
-            <form class="form-inline py-3 py-lg-0" action='index.php' method='get'>
-              <input type="search" placeholder="Search" aria-label="Search"
-                class="form-control w-100 mr-sm-2 bg-dark border-info text-light">
-              <input class="d-none" type="submit">
+            <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
+              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+                class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
+              <div class="inputWidth"></div>
+              <input type="text" name="postFilter" class='postFilter d-none'>
+              <input type="submit" class="d-none">
             </form>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="index.php">News</a>
           </li>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">Repository</a>
           </li>
           <?php if($loggedBool) echo '<li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="configuration_page.php">Configure</a>
           </li>'; ?>
           <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 py-lg-2 nav-link btn-sm bg-transparent text-left"
               href="#">About</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end">
           <li class="nav-item active d-none <?php if($loggedBool) echo 'd-lg-block'; ?>">
-            <button class="px-3 nav-link btn text-left dropdown-toggle"
-              href="#" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false"><?php if($loggedBool) echo $username; ?></button>
+            <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              class="px-3 nav-link btn text-left dropdown-toggle">
+              <?php if($loggedBool) echo $username; ?>
+            </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <a class="btn btn-light w-100 text-left" href="#">Help</a>
                 <a class="btn btn-light w-100 text-left" href="#">Accout settings</a>
@@ -72,23 +77,23 @@
               </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">
-            <a class="px-3 nav-link btn btn-sm bg-info text-left"
+            <a class="px-3 nav-link btn-sm bg-info text-left"
               href="login.php">sign in</a>
           </li>
           <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="#">Help</a>
           </li>
           <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="#">Accout settings</a>
           </li>
           <li class="nav-item active <?php if(!$loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="login.php">Sign in</a>
           </li>
           <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="php/login/logout.php">Sign out</a>
           </li>
         </ul>
@@ -101,7 +106,7 @@
       <div class='col-sm-12 bg-dark p-4 mt-3 text-left'>
         <p class='h5'>Create post</p>
 
-        <form action="php/blog configuration/add_post.php" method="post" id='add_post'>
+        <form action="php/blog_configuration/add_post.php" method="post" id='add_post'>
           <p class="p-1 m-0 text-left text-muted">Post title</p>
           <input type="text" name="post_title" maxlength='255'
             class='mx-auto mb-3 form-control bg-dark border-info text-light'>
@@ -116,7 +121,10 @@
     </div>
   </main>
 
-  <?php require_once 'php/parts_of_a_website/footer.php'; ?>
-  <?php if($loggedBool) echo '<script src="js/auto_sign_out.js"></script>'; ?>
+  <?php
+    require_once 'php/parts_of_a_website/footer.php';
+    echo '<script src="js/query_to_PHP.js"></script>';
+    if($loggedBool) echo '<script src="js/auto_sign_out.js"></script>';
+  ?>
 </body>
 </html>

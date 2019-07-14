@@ -32,16 +32,18 @@
   <header class='col-sm-12 row mx-0 justify-content-between bg-dark'>
     <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand btn bg-transparent text-info" href="index.php">Home</a>
-      <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
-            <form action='index.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" placeholder="Search" aria-label="Search"
-                class="form-control w-100 mr-sm-2 bg-dark border-info text-light">
+            <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
+              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+                class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
+              <div class="inputWidth"></div>
+              <input type="text" name="postFilter" class='postFilter d-none'>
               <input type="submit" class="d-none">
             </form>
           </li>
@@ -79,19 +81,19 @@
               href="login.php">sign in</a>
           </li>
           <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="#">Help</a>
           </li>
           <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="#">Accout settings</a>
           </li>
           <li class="nav-item active <?php if(!$loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="login.php">Sign in</a>
           </li>
           <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 nav-link btn bg-transparent text-left"
+            <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
               href="php/login/logout.php">Sign out</a>
           </li>
         </ul>
@@ -102,29 +104,73 @@
   <main class='container-fluid row mx-auto text-light'>
     <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 col-lg-3 bg-dark p-4 mt-3 text-left'>
-        <p class='px-1 mb-3'>History</p>
-        <input type="text" value="" class='form-control w-100 mb-1 bg-dark border-info text-light'>
-        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>Today</a><br>
-        <a href="" class='px-1 btn btn-sm  bg-transparent text-info'>Yesterday</a><br>
-        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>Last 7 days</a><br>
-        <a href="" class='px-1 btn btn-sm bg-transparent text-info'>This month</a><br>
-      </div>
 
+        <div class="accordion" id="accordionExample">
+          <div class="card bg-dark">
+            <div class="card-header" id="headingOne">
+              <a class="btn btn-sm px-0 text-light collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Upload date
+              </a>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <a onclick='queryToPHP("All", "filter")' class='px-4 pt-3 btn btn-sm text-info'>All</a><br>
+              <a onclick='queryToPHP("Today", "filter")' class='px-4 btn btn-sm text-info'>Today</a><br>
+              <a onclick='queryToPHP("Yesterday", "filter")' class='px-4 btn btn-sm text-info'>Yesterday</a><br>
+              <a onclick='queryToPHP("Last 7 days", "filter")' class='px-4 btn btn-sm text-info'>Last 7 days</a><br>
+              <a onclick='queryToPHP("This month", "filter")' class='px-4 pb-3 btn btn-sm text-info'>This month</a><br>
+            </div>
+          </div>
+          <div class="card bg-dark">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Type
+                </a>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <a onclick='queryToPHP("JavaScript", "filter")' class='px-4 pt-3 btn btn-sm text-info'>JavaScript</a><br>
+              <a onclick='queryToPHP("Java", "filter")' class='px-4 btn btn-sm text-info'>Java</a><br>
+              <a onclick='queryToPHP("PHP", "filter")' class='px-4 btn btn-sm text-info'>PHP</a><br>
+              <a onclick='queryToPHP("Python", "filter")' class='px-4 btn btn-sm text-info'>Python</a><br>
+              <a onclick='queryToPHP("C Language", "filter")' class='px-4 btn btn-sm text-info'>C Language</a><br>
+              <a onclick='queryToPHP("Ruby", "filter")' class='px-4 btn btn-sm text-info'>Ruby</a><br>
+              <a onclick='queryToPHP("Swift", "filter")' class='px-4 pb-3 btn btn-sm text-info'>Swift</a><br>
+            </div>
+          </div>
+          <div class="card bg-dark">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Sort by
+                </a>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <a onclick='queryToPHP("title", "sort")' class='px-4 btn pt-3 btn-sm text-info'>Type</a><br>
+              <a onclick='queryToPHP("title", "sort")' class='px-4 btn btn-sm text-info'>Title</a><br>
+              <a onclick='queryToPHP("create_date", "sort")' class='px-4 btn btn-sm text-info'>Date</a><br>
+              <a onclick='queryToPHP("username", "sort")' class='px-4 pb-3 btn btn-sm text-info'>Author</a><br>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class='col-sm-12 col-lg-8 p-0 mt-3'>
         <?php
-          require_once 'php/parts_of_a_website/blog_content.php';
-          $Blog_content = new Blog_content($loggedBool);
-          echo $Blog_content->return_html();
+          require_once 'php/blog_configuration/get_posts.php';
+          $Get_posts = new Get_posts($loggedBool);
+          echo $Get_posts->return_html();
         ?>
       </div>
     </div>
   </main>
 
-  <?php require_once 'php/parts_of_a_website/footer.php'; ?>
   <?php
+    require_once 'php/parts_of_a_website/footer.php';
+    echo '<script src="js/query_to_PHP.js"></script>';
     if($loggedBool) {
       echo '<script src="js/auto_sign_out.js"></script>';
-      echo '<script src="js/remove_post.js"></script>';
     }
   ?>
 </body>

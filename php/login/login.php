@@ -36,8 +36,8 @@ class Login {
 
   private function correctLogin() {
     session_start();
-    $_SESSION['login'] = $this->username;
     $_SESSION['userId'] = $this->userId;
+    $_SESSION['login'] = $this->username;
     header('Location: ../../index.php');
   }
 
