@@ -31,7 +31,7 @@
 
   <header class='col-sm-12 row mx-0 justify-content-between bg-dark'>
     <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand btn bg-transparent text-info" href="index.php">Home</a>
+      <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
       <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -40,10 +40,10 @@
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
             <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+              <input type="search" name='searchValue' placeholder="Search" value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
                 class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
               <div class="inputWidth"></div>
-              <input type="text" name="postFilter" class='postFilter d-none'>
+              <input type="text" name="postFilter" value='form' class='postFilter d-none'>
               <input type="submit" class="d-none">
             </form>
           </li>
@@ -71,14 +71,13 @@
               <?php if($loggedBool) echo $username; ?>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="#" class="btn btn-light w-100 text-left">Help</a>
-              <a href="#" class="btn btn-light w-100 text-left">Accout settings</a>
+              <a href="index.php" class="btn btn-light w-100 text-left">Help</a>
+              <a href="index.php" class="btn btn-light w-100 text-left">Accout settings</a>
               <a href="php/login/logout.php" class="btn btn-light w-100 text-left">Sign out</a>
             </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">
-            <a class="px-3 nav-link btn text-left"
-              href="login.php">sign in</a>
+            <a href="login.php" class="px-3 nav-link btn text-left">sign in</a>
           </li>
           <li class="nav-item active d-lg-none">
             <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
@@ -113,7 +112,7 @@
               </a>
             </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
               <a onclick='queryToPHP("All", "filter")' class='px-4 pt-3 btn btn-sm text-info'>All</a><br>
               <a onclick='queryToPHP("Today", "filter")' class='px-4 btn btn-sm text-info'>Today</a><br>
               <a onclick='queryToPHP("Yesterday", "filter")' class='px-4 btn btn-sm text-info'>Yesterday</a><br>
@@ -129,7 +128,7 @@
                 </a>
               </h5>
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <a onclick='queryToPHP("JavaScript", "filter")' class='px-4 pt-3 btn btn-sm text-info'>JavaScript</a><br>
               <a onclick='queryToPHP("Java", "filter")' class='px-4 btn btn-sm text-info'>Java</a><br>
               <a onclick='queryToPHP("PHP", "filter")' class='px-4 btn btn-sm text-info'>PHP</a><br>
@@ -147,7 +146,7 @@
                 </a>
               </h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#accordionExample">
               <a onclick='queryToPHP("title", "sort")' class='px-4 btn pt-3 btn-sm text-info'>Type</a><br>
               <a onclick='queryToPHP("title", "sort")' class='px-4 btn btn-sm text-info'>Title</a><br>
               <a onclick='queryToPHP("create_date", "sort")' class='px-4 btn btn-sm text-info'>Date</a><br>
@@ -168,10 +167,10 @@
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    echo '<script src="js/query_to_PHP.js"></script>';
     if($loggedBool) {
       echo '<script src="js/auto_sign_out.js"></script>';
     }
   ?>
+  <script src="js/query_to_PHP.js"></script>
 </body>
 </html>

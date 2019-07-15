@@ -1,3 +1,14 @@
+<?php
+  session_start();
+  $username = 'user';
+  $userId = 0;
+  $loggedBool = false;
+  if(isset($_SESSION['login'])) {
+    $username = $_SESSION['login'];
+    $userId = $_SESSION['userId'];
+    $loggedBool = true;
+  }
+?>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -17,8 +28,11 @@
   <header class='col-sm-12 row mx-0 text-center'>
     <h3 class='w-100 text-info pt-5 mt-5'>404 Page not found</h3>
     <p class='w-100 text-info'>
-      The page you were looking for doesn't exist or an other error occurred.<br>
-      Go back, or head over to <a href='#' class='text-info'>database.com</a> to choose a new direction.
+      The page you were looking for doesn't exist or an other error occurred.
+      <br>
+      Go back, or head over to
+      <a href='index.php' class='text-info'>database.com</a>
+      to choose a new direction.
     </p>
   </header>
 
@@ -28,6 +42,11 @@
     </div>
   </main>
 
-  <?php require_once 'php/parts_of_a_website/footer.php'; ?>
+  <?php
+    require_once 'php/parts_of_a_website/footer.php';
+    if($loggedBool) {
+      echo '<script src="js/auto_sign_out.js"></script>';
+    }
+  ?>
 </body>
 </html>

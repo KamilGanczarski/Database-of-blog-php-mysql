@@ -34,10 +34,10 @@
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
             <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+              <input type="search" name='searchValue' placeholder="Search" value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
                 class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
               <div class="inputWidth"></div>
-              <input type="text" name="postFilter" class='postFilter d-none'>
+              <input type="text" name="postFilter" value='form' class='postFilter d-none'>
               <input type="submit" class="d-none">
             </form>
           </li>

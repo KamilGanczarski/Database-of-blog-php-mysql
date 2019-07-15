@@ -4,9 +4,8 @@ require 'connection.php';
 
 class Fetch {
   private $query;
-  private $error;
   private $queryType;
-  // All keys of table
+  // All keys of object
   private $tableKeys = [];
   // Content
   private $tableData = [];
@@ -33,10 +32,7 @@ class Fetch {
     } else {
       $this->queryType = explode(' ', trim($this->query));
       $this->queryType = $this->queryType[0];
-
-      if($this->queryType === 'SELECT') {
-        $this->fetchData();
-      }
+      if($this->queryType === 'SELECT') $this->fetchData();
     }
     // mysqli_close($this->connection);
   }
@@ -52,11 +48,19 @@ class Fetch {
     }
 
     if($record = mysqli_fetch_all($this->result)) {
-      $this->result = [];
       $this->tableData = array_merge($this->tableData, $record);
-      for($i=0; $i<count($this->tableData); $i++) {
-        array_push($this->result, array_combine($this->tableKeys, $this->tableData[$i]));
+    }
+
+    if($this->result->num_rows > 1) {
+      $this->result = [];
+      foreach($this->tableData as $object) {
+        array_push($this->result, array_combine($this->tableKeys, $object));
       }
+    } else if($this->result->num_rows == 1) {
+      $this->result = [];
+      array_push($this->result, array_combine($this->tableKeys, $this->tableData[0]));
+    } else {
+      $this->result = 0;
     }
   }
 

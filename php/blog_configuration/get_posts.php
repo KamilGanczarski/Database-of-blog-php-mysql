@@ -56,9 +56,19 @@ class Get_posts {
     }
   }
 
+  private function noSuchPosts() {
+    $this->result =
+    '<div class="w-100 bg-dark p-4 mb-2 text-left">' .
+      '<a href="#" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
+        text-info">There is no such post you\'re looking for.</a>' .
+    '</div>';
+  }
+
   public function return_html() {
     // Check if the user is logged in
-    if($this->loggedBool == true) {
+    if($this->content == 0) {
+      $this->noSuchPosts();
+    } else if($this->loggedBool == true) {
       $this->editable_blog();
     } else {
       $this->simple_blog();

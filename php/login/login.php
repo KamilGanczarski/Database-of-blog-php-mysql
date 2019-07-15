@@ -2,59 +2,27 @@
 
 require_once '../fetch_data/fetch.php';
 $Fetch = new Fetch;
-$users = $Fetch->fetch('SELECT * FROM Users');
 
 class Login {
   public $userId = 0;
   public $username = '';
   private $password = '';
   private $loggedBool = '';
-  private $users = [];
+  // Object
+  private $User;
 
   public function __construct() {
-    global $users;
-    $this->users = $users;
-  }
-
-  private function checkIfUserExist() {
-    for($i=0; $i<count($this->users); $i++) {
-      if($this->users[$i]['username'] === $this->username) {
-        $this->userId = $i;
-        $this->username = $this->users[$i]['username'];
-        return true;
-      }
-    }
-  }
-
-  private function checkPassword() {
-    if($this->users[$this->userId]['password'] === $this->password) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private function correctLogin() {
     session_start();
-    $_SESSION['userId'] = $this->userId;
-    $_SESSION['login'] = $this->username;
-    header('Location: ../../index.php');
-  }
-
-  private function incorrectLogin() {
-    session_start();
-    $_SESSION['msg'] = 'Incorrect username or password.';
-    header('Location: ../../login.php');
-  }
-
-  public function checkUser() {
     $this->username = $_POST['username'];
     $this->password = $_POST['password'];
-    $this->loggedBool = $this->checkIfUserExist();
+  }
 
-    if($this->loggedBool) {
-      $this->loggedBool = $this->checkPassword();
-      if($this->loggedBool) {
+  public function checkUserLogin() {
+    global $Fetch;
+    $this->User = "SELECT * FROM Users WHERE username LIKE \"$this->username\"";
+    $this->User = $Fetch->fetch($this->User);
+    if(is_array($this->User)) {
+      if($this->User[0]['password'] === $this->password) {
         $this->correctLogin();
       } else {
         $this->incorrectLogin();
@@ -63,7 +31,18 @@ class Login {
       $this->incorrectLogin();
     }
   }
+
+  private function correctLogin() {
+    $_SESSION['userId'] = $this->User[0]['id'];
+    $_SESSION['login'] = $this->User[0]['username'];
+    header('Location: ../../index.php');
+  }
+
+  private function incorrectLogin() {
+    $_SESSION['msg'] = 'Incorrect username or password.';
+    header('Location: ../../login.php');
+  }
 }
 
 $Login = new Login;
-$Login->checkUser();
+$Login->checkUserLogin();

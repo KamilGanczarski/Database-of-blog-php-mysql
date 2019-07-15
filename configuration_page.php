@@ -3,6 +3,8 @@
   $username = 'user';
   $userId = 0;
   $loggedBool = false;
+  $msg = '';
+  $msgBool = true;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
     $userId = $_SESSION['userId'];
@@ -10,6 +12,7 @@
   }
 
   if(isset($_SESSION['msg'])) {
+    $msgBool = false;
     $msg = $_SESSION['msg'];
   }
 ?>
@@ -40,10 +43,10 @@
         <ul class="navbar-nav mr-auto justify-content-end">
           <li class="nav-item active my-auto">
             <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" placeholder="Search" name='searchValue' value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
+              <input type="search" name='searchValue' placeholder="Search" value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
                 class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-info text-light formSearchInput">
               <div class="inputWidth"></div>
-              <input type="text" name="postFilter" class='postFilter d-none'>
+              <input type="text" name="postFilter" value='form' class='postFilter d-none'>
               <input type="submit" class="d-none">
             </form>
           </li>
@@ -71,22 +74,22 @@
               <?php if($loggedBool) echo $username; ?>
             </button>
               <div class="dropdown-menu dropdown-menu-right">
-                <a class="btn btn-light w-100 text-left" href="#">Help</a>
-                <a class="btn btn-light w-100 text-left" href="#">Accout settings</a>
-                <a class="btn btn-light w-100 text-left" href="php/login/logout.php">Sign out</a>
+                <a href="index.php" class="btn btn-light w-100 text-left">Help</a>
+                <a href="index.php" class="btn btn-light w-100 text-left">Accout settings</a>
+                <a href="php/login/logout.php" class="btn btn-light w-100 text-left">Sign out</a>
               </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">
-            <a class="px-3 nav-link btn-sm bg-info text-left"
-              href="login.php">sign in</a>
+            <a href="login.php" class="px-3 nav-link btn-sm bg-info text-left">
+              sign in</a>
           </li>
           <li class="nav-item active d-lg-none">
             <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
-              href="#">Help</a>
+              href="index.php">Help</a>
           </li>
           <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
-              href="#">Accout settings</a>
+              href="index.php">Accout settings</a>
           </li>
           <li class="nav-item active <?php if(!$loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 nav-link btn-sm bg-transparent text-left"
@@ -102,8 +105,17 @@
   </header>
 
   <main class='container-fluid row mx-auto text-light'>
-    <div class='w-100 mx-0 row py-3 justify-content-around'>
-      <div class='col-sm-12 bg-dark p-4 mt-3 text-left'>
+    <div class="mx-auto mt-4 <?php if($msgBool) echo 'd-none'; else echo 'd-block'; ?>">
+      <div class="loginWindowW alert alert-danger alert-dismissible fade show text-left m-0" role="alert">
+        <?php if(!$msgBool) echo $msg; ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <div class='w-100 mx-0 row py-4 justify-content-around'>
+      <div class='col-sm-12 bg-dark p-4 text-left'>
         <p class='h5'>Create post</p>
 
         <form action="php/blog_configuration/add_post.php" method="post" id='add_post'>
@@ -123,8 +135,10 @@
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    echo '<script src="js/query_to_PHP.js"></script>';
-    if($loggedBool) echo '<script src="js/auto_sign_out.js"></script>';
+    if($loggedBool) {
+      echo '<script src="js/auto_sign_out.js"></script>';
+    }
   ?>
+  <script src="js/query_to_PHP.js"></script>
 </body>
 </html>

@@ -19,18 +19,3 @@ function queryToPHP(item, behaviour) {
     window.location.href = url + query;
   }
 }
-
-function createSqlQuery() {
-  let formSearchInput = document.getElementsByClassName('formSearchInput')[0];
-  let postFilter = document.getElementsByClassName('postFilter')[0];
-  postFilter.value = 'SELECT * FROM Blog_content';
-  formSearchInput.onchange = function() {
-    formSearchInput = document.getElementsByClassName('formSearchInput')[0];
-      postFilter.value = 'SELECT * FROM Blog_content';
-    if(formSearchInput.value != '') {
-      postFilter.value = 'SELECT * FROM Blog_content WHERE content LIKE \'%';
-      postFilter.value += formSearchInput.value + '%\'';
-    }
-  }
-}
-createSqlQuery();
