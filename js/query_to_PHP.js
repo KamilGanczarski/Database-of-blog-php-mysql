@@ -10,7 +10,7 @@ function queryToPHP(item, behaviour) {
   } else if (behaviour === 'filter') {
     // Filter posts
     url = 'php/blog_configuration/sort_posts.php?';
-    query = 'postFilter=' + 'SELECT * FROM Blog_content WHERE title = \'' + item + '\'';
+    query = 'postFilter=' + 'SELECT * FROM Blog_content WHERE type = \'' + item + '\'';
     window.location.href = url + query;
   } else if(behaviour === 'sort') {
     // Sort posts

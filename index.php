@@ -53,7 +53,7 @@
           </li>
           <?php if($loggedBool) echo '<li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="configuration_page.php">Add post</a>
+              href="add_post.php">Add post</a>
           </li>'; ?>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"

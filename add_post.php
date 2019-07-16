@@ -58,11 +58,11 @@
           </li>
           <?php if($loggedBool) echo '<li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="configuration_page.php">Add post</a>
+              href="add_post.php">Add post</a>
           </li>'; ?>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Documentation</a>
+              href="documentation.php">Documentation</a>
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
@@ -120,9 +120,27 @@
         <p class='h5 text-info'>Create post</p>
 
         <form action="php/blog_configuration/add_post.php" method="post" id='add_post'>
-          <p class="p-1 m-0 text-left text-muted">Post title</p>
-          <input type="text" name="post_title" maxlength='255'
-            class='mx-auto mb-3 form-control bg-dark border-dark text-light'>
+          <div class="w-100 m-0 p-0 row justify-content-between">
+            <div class="col-sm-8 p-0">
+              <p class="p-1 m-0 text-left text-muted">Post title</p>
+              <input type="text" name="post_title" maxlength='255'
+                class='mb-3 form-control form-control-sm bg-dark border-dark text-light'>
+            </div>
+            <div class="col-sm-3 p-0">
+              <p class="p-1 m-0 text-left text-muted">Post type</p>
+              <select name="post_type" class="w-100 form-control form-control-sm form-control-dark">
+                <option selected>Type</option>
+                <option value='JavaScript'>JavaScript</option>
+                <option value='Java'>Java</option>
+                <option value='PHP'>PHP</option>
+                <option value='Python'>Python</option>
+                <option value='C Language'>C Language</option>
+                <option value='Ruby'>Ruby</option>
+                <option value='Swift'>Swift</option>
+                <option value='Other'>Other</option>
+              </select>
+            </div>
+          </div>
           <p class="p-1 m-0 text-left text-muted">Post Content</p>
           <textarea form='add_post' name='post_content' rows="13"
             class='w-100 p-2 bg-dark border-dark text-light'></textarea>

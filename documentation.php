@@ -53,7 +53,7 @@
           </li>
           <?php if($loggedBool) echo '<li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="configuration_page.php">Add post</a>
+              href="add_post.php">Add post</a>
           </li>'; ?>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
@@ -114,8 +114,6 @@
           <?php
             require_once 'php/fetch_data/fetch.php';
             require_once 'php/fetch_data/connection.php';
-            // $Fetch = new Fetch;
-            // echo $Fetch->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"')[0]['i'];
 
             class Get_users extends Fetch {
               public function get_div() {
@@ -125,10 +123,8 @@
             }
             $Fetch = new Get_users();
             echo $Fetch->get_div();
-            // echo $Fetch->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"')[0]['i'];
           ?>
         </div>
-
       </div>
 
       <div class='col-sm-12 col-lg-8 p-0 mt-3' data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
@@ -138,7 +134,7 @@
         </p>
         <pre class='border rounded border-dark bg-navy-blue text-left text-light'>
 
-  theme/
+  source/
     ├── create_table_in_phpmyadmin/
     │     └── index.sql
     ├── js/
@@ -162,7 +158,7 @@
     ├── style/
     │   └── style.css
     ├── 404.php
-    ├── configuration_page.php
+    ├── add_post.php
     ├── documentation.php
     ├── index.php
     ├── LICENSE
