@@ -1,16 +1,14 @@
-DROP DATABASE IF EXISTS LoginSystem;
-CREATE DATABASE LoginSystem DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci;
-USE LoginSystem;
+DROP DATABASE IF EXISTS Blog_system;
+CREATE DATABASE Blog_system DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci;
+USE Blog_system;
 
-CREATE TABLE Users
-(
+CREATE TABLE Users (
   id bigint unsigned primary key auto_increment,
   username varchar(50) not null,
   password varchar(50) not null
 );
 
-CREATE TABLE Blog_content
-(
+CREATE TABLE Blog_content (
   id bigint unsigned primary key auto_increment,
   create_date date,
   username varchar(50) not null,

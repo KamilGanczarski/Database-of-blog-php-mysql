@@ -1,7 +1,5 @@
 <?php
 
-require 'connection.php';
-
 class Fetch {
   private $query;
   private $queryType;
@@ -21,10 +19,7 @@ class Fetch {
     mysqli_connect_errno()==0 or die('Błąd połączenia z MySQL: "'. mysqli_connect_error(). '".');
     mysqli_query($this->connection, 'SET NAMES utf8');
     if(!($this->result = mysqli_query($this->connection, $this->query))) {
-      $this->tableKeys = array(
-        'Typ błędu',
-        'Opis błędu'
-      );
+      $this->tableKeys = array('Typ błędu', 'Opis błędu');
       $this->tableData = array(array(
         'Problem z zapytaniem mysql',
         'BŁĄD: problem z zapytaniem "'. $this->query. '".'

@@ -1,6 +1,7 @@
 <?php
 
 require_once '../fetch_data/fetch.php';
+require_once '../fetch_data/connection.php';
 $Fetch = new Fetch;
 $post_id = 0;
 $post_user = '';
@@ -16,10 +17,6 @@ if(strlen(trim($post_title)) > 0 && strlen(trim($post_content)) > 0) {
   $post_user = $_SESSION["login"];
   $post_title = nl2br($post_title);
   $post_content = nl2br($post_content);
-  // echo $post_id . '<br>';
-  // echo $post_user . '<br>';
-  // echo $post_title . '<br>';
-  // echo $post_content . '<br>';
   $query_to_sql = "INSERT INTO Blog_content(id, username, create_date, title, content) VALUES ";
   $query_to_sql .= "($post_id, '$post_user', CURRENT_TIMESTAMP, '$post_title', '$post_content')";
   $Fetch->fetch("$query_to_sql");

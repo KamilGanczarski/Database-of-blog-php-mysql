@@ -1,19 +1,12 @@
 <?php
 
 require_once 'php/fetch_data/fetch.php';
+require_once 'php/fetch_data/connection.php';
 
-class Get_posts {
+class Get_posts extends Fetch {
+  private $loggedBool = '';
+  private $content = '';
   private $result = '';
-  private $Fetch;
-
-  public function __construct($loggedBool) {
-    $this->loggedBool = $loggedBool;
-    $Fetch = new Fetch;
-    $this->content = $Fetch->fetch('SELECT * FROM Blog_content');
-    if(isset($_SESSION['postFilter'])) {
-      $this->content = $Fetch->fetch($_SESSION['postFilter']);
-    }
-  }
 
   /*
    * Return simple blog without buttons to remove posts
@@ -22,8 +15,8 @@ class Get_posts {
     $this->result = '';
     foreach($this->content as $value) {
       $this->result .=
-      '<div class="w-100 bg-dark p-4 mb-2 text-left">' .
-        '<a href="#" class="w-50 px-0 py-lg-2 nav-link btn bg-transparent text-left
+      '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
+        '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left
           text-info">' . $value['title'] . '</a>' .
           '<div class="row px-3 justify-content-between">' .
             '<p class="col-6 px-0">Written by: ' . $value['username'] . '</p>' .
@@ -41,11 +34,11 @@ class Get_posts {
     $this->result = '';
     foreach($this->content as $value) {
       $this->result .=
-      '<div class="w-100 bg-dark p-4 mb-2 text-left">' .
+      '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
         '<button class="close text-light" aria-label="Close" onclick="queryToPHP(' . $value['id'] . ', \'remove\')">
           <span aria-hidden="true">&times;</span>
         </button>' .
-        '<a href="#" class="w-50 px-0 py-lg-2 nav-link btn bg-transparent text-left
+        '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left
           text-info">' . $value['title'] . '</a>' .
           '<div class="row px-3 justify-content-between">' .
             '<p class="col-6 px-0">Written by: ' . $value['username'] . '</p>' .
@@ -58,13 +51,19 @@ class Get_posts {
 
   private function noSuchPosts() {
     $this->result =
-    '<div class="w-100 bg-dark p-4 mb-2 text-left">' .
-      '<a href="#" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
+    '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
+      '<a href="index.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
         text-info">There is no such post you\'re looking for.</a>' .
     '</div>';
   }
 
-  public function return_html() {
+  public function return_html($loggedBool) {
+    $this->loggedBool = $loggedBool;
+    $this->content = $this->fetch('SELECT * FROM Blog_content');
+    if(isset($_SESSION['postFilter'])) {
+      $this->content = $this->fetch($_SESSION['postFilter']);
+    }
+
     // Check if the user is logged in
     if($this->content == 0) {
       $this->noSuchPosts();

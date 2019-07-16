@@ -2,6 +2,14 @@
   background: #181818;
 }
 
+.bg-navy-blue {
+  background: #1a1c22;
+}
+
+.bg-gray {
+  background: #252830;
+}
+
 .loginWindowW {
   width: 450px;
 }

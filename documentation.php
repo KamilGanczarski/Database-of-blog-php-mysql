@@ -3,18 +3,13 @@
   $username = 'user';
   $userId = 0;
   $loggedBool = false;
-  $msg = '';
-  $msgBool = true;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
     $userId = $_SESSION['userId'];
     $loggedBool = true;
-  } else {
-    header('Location: index.php');
   }
 
   if(isset($_SESSION['msg'])) {
-    $msgBool = false;
     $msg = $_SESSION['msg'];
   }
 ?>
@@ -62,7 +57,7 @@
           </li>'; ?>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Documentation</a>
+              href="documentation.php">Documentation</a>
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
@@ -106,30 +101,76 @@
   </header>
 
   <main class='container-fluid row mx-auto text-light'>
-    <div class="mx-auto mt-4 <?php if($msgBool) echo 'd-none'; else echo 'd-block'; ?>">
-      <div class="loginWindowW alert alert-danger alert-dismissible fade show text-left m-0" role="alert">
-        <?php if(!$msgBool) echo $msg; ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class='w-100 mx-0 row py-3 justify-content-around'>
+      <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
+        <div id="list-example" class="list-group">
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-1">What’s included</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-2">Components</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Item 3</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-4">Item 4</a>
+        </div>
+
+        <div class="">
+          <?php
+            require_once 'php/fetch_data/fetch.php';
+            require_once 'php/fetch_data/connection.php';
+            // $Fetch = new Fetch;
+            // echo $Fetch->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"')[0]['i'];
+
+            class Get_users extends Fetch {
+              public function get_div() {
+                $this->div = $this->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"');
+                return '<h4>Number of users: ' . $this->div[0]['i'] . '</h4>';
+              }
+            }
+            $Fetch = new Get_users();
+            echo $Fetch->get_div();
+            // echo $Fetch->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"')[0]['i'];
+          ?>
+        </div>
+
       </div>
-    </div>
 
-    <div class='w-100 mx-0 row py-4 justify-content-around'>
-      <div class='col-sm-12 bg-navy-blue p-4 text-left'>
-        <p class='h5 text-info'>Create post</p>
+      <div class='col-sm-12 col-lg-8 p-0 mt-3' data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+        <p class='h4 text-left text-info' id="list-item-1">What’s included</p>
+        <p class='text-left text-light'>
+          You’ll find the following directories and files, grouping common resources and providing both compiled and minified distribution files, as well as raw source files.
+        </p>
+        <pre class='border rounded border-dark bg-navy-blue text-left text-light'>
 
-        <form action="php/blog_configuration/add_post.php" method="post" id='add_post'>
-          <p class="p-1 m-0 text-left text-muted">Post title</p>
-          <input type="text" name="post_title" maxlength='255'
-            class='mx-auto mb-3 form-control bg-dark border-dark text-light'>
-          <p class="p-1 m-0 text-left text-muted">Post Content</p>
-          <textarea form='add_post' name='post_content' rows="13"
-            class='w-100 p-2 bg-dark border-dark text-light'></textarea>
-          <div class="w-100 text-right">
-            <input type="submit" value="Create" class='px-5 my-1 btn btn-info'>
-          </div>
-        </form>
+  theme/
+    ├── create_table_in_phpmyadmin/
+    │     └── index.sql
+    ├── js/
+    │     ├── auto_sign_out.js
+    │     ├── auto_sign_out.js
+    │     └── resize_page.js
+    ├── php/
+    │     ├── blog_configuration/
+    |     |   ├── add_post.php
+    |     |   ├── get_posts.php
+    |     |   ├── remove_posts.php
+    |     |   └── sort_post.php
+    │     ├── fetch_data/
+    |     |   ├── connection.php
+    |     |   └── fetch.php
+    │     ├── login/
+    |     |   ├── login.php
+    |     |   └── logout.php
+    │     └── parts_of_a_website/
+    |         └── footer.php
+    ├── style/
+    │   └── style.css
+    ├── 404.php
+    ├── configuration_page.php
+    ├── documentation.php
+    ├── index.php
+    ├── LICENSE
+    └── login.php
+        </pre>
+
+        <p class='h4 text-left text-info' id="list-item-2">Components</p>
+        <p class='text-left text-light'></p>
       </div>
     </div>
   </main>
