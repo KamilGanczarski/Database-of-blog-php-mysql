@@ -1,4 +1,6 @@
 <?php
+  require_once 'php/blog_configuration/get_posts.php';
+
   session_start();
   $username = 'user';
   $userId = 0;
@@ -12,6 +14,7 @@
   if(isset($_SESSION['msg'])) {
     $msg = $_SESSION['msg'];
   }
+
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -70,10 +73,11 @@
               class="px-3 nav-link btn text-left dropdown-toggle">
               <?php if($loggedBool) echo $username; ?>
             </button>
-            <div class="dropdown-menu dropdown-menu-right bg-dark">
-              <a href="index.php" class="btn btn-sm btn-dark w-100 text-left">Help</a>
-              <a href="index.php" class="btn btn-sm btn-dark w-100 text-left">Accout settings</a>
-              <a href="php/login/logout.php" class="btn btn-sm btn-dark w-100 text-left">Sign out</a>
+            <div class="dropdown-menu dropdown-menu-right bg-dark" style='width: 200px;'>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Help</a>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Accout settings</a>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Your posts</a>
+              <a href="php/login/logout.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Sign out</a>
             </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">
@@ -103,8 +107,7 @@
   <main class='container-fluid row mx-auto text-light'>
     <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
-
-        <div class="accordion" id="accordionExample">
+        <nav class="accordion mb-4" id="accordionExample">
           <div class="card bg-transparent border rounded-top border-dark">
             <div class="card-header" id="headingOne">
               <a class="btn btn-sm px-0 text-light collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -113,21 +116,16 @@
             </div>
 
             <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <a onclick='queryToPHP("All", "filter")' class='px-4 pt-3 btn btn-sm text-info'>All</a><br>
-              <a onclick='queryToPHP("Today", "filter")' class='px-4 btn btn-sm text-info'>Today</a><br>
-              <a onclick='queryToPHP("Yesterday", "filter")' class='px-4 btn btn-sm text-info'>Yesterday</a><br>
-              <a onclick='queryToPHP("Last 7 days", "filter")' class='px-4 btn btn-sm text-info'>Last 7 days</a><br>
-              <a onclick='queryToPHP("This month", "filter")' class='px-4 pb-3 btn btn-sm text-info'>This month</a><br>
+              <a onclick='queryToPHP("All", "all")' class='px-4 py-3 btn btn-sm text-info'>All</a><br>
             </div>
           </div>
           <div class="card bg-transparent border border-dark">
             <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Type
-                </a>
-              </h5>
+              <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Type
+              </a>
             </div>
+
             <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <a onclick='queryToPHP("JavaScript", "filter")' class='px-4 pt-3 btn btn-sm text-info'>JavaScript</a><br>
               <a onclick='queryToPHP("Java", "filter")' class='px-4 btn btn-sm text-info'>Java</a><br>
@@ -140,26 +138,42 @@
           </div>
           <div class="card bg-transparent border rounded-bottom border-dark">
             <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Sort by
-                </a>
-              </h5>
+              <a class="btn btn-sm px-0 text-light" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Sort by
+              </a>
             </div>
+
             <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <a onclick='queryToPHP("title", "sort")' class='px-4 btn pt-3 btn-sm text-info'>Type</a><br>
+              <a onclick='queryToPHP("type", "sort")' class='px-4 btn pt-3 btn-sm text-info'>Type</a><br>
               <a onclick='queryToPHP("title", "sort")' class='px-4 btn btn-sm text-info'>Title</a><br>
-              <a onclick='queryToPHP("create_date", "sort")' class='px-4 btn btn-sm text-info'>Date</a><br>
+              <a onclick='queryToPHP("create_date", "sort")' class='px-4 btn btn-sm text-info'>Upload date</a><br>
               <a onclick='queryToPHP("username", "sort")' class='px-4 pb-3 btn btn-sm text-info'>Author</a><br>
             </div>
           </div>
+        </nav>
+
+        <div class="py-2 text-left border rounded border-dark">
+          <?php
+            $Get_posts = new Get_posts();
+            echo $Get_posts->return_html($loggedBool, 'title');
+          ?>
         </div>
       </div>
+
       <div class='col-sm-12 col-lg-8 p-0 mt-3'>
+        <div class="w-100 text-left">
+          <?php
+            if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
+              echo '<button onclick=\'queryToPHP("All", "all")\' class="btn btn-dark mx-2 mb-2">' .
+                $_SESSION['postFilterMsg'] .
+                '<span aria-hidden="true" class="pl-3">&times;</span>
+              </button>';
+            };
+          ?>
+        </div>
         <?php
-          require_once 'php/blog_configuration/get_posts.php';
           $Get_posts = new Get_posts();
-          echo $Get_posts->return_html($loggedBool);
+          echo $Get_posts->return_html($loggedBool, 'all');
         ?>
       </div>
     </div>

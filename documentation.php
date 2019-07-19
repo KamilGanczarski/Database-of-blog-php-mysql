@@ -109,22 +109,6 @@
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Item 3</a>
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-4">Item 4</a>
         </div>
-
-        <div class="">
-          <?php
-            require_once 'php/fetch_data/fetch.php';
-            require_once 'php/fetch_data/connection.php';
-
-            class Get_users extends Fetch {
-              public function get_div() {
-                $this->div = $this->fetch('SELECT count(id) as `i` FROM Blog_content WHERE username LIKE "admin"');
-                return '<h4>Number of users: ' . $this->div[0]['i'] . '</h4>';
-              }
-            }
-            $Fetch = new Get_users();
-            echo $Fetch->get_div();
-          ?>
-        </div>
       </div>
 
       <div class='col-sm-12 col-lg-8 p-0 mt-3' data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
@@ -132,37 +116,37 @@
         <p class='text-left text-light'>
           You’ll find the following directories and files, grouping common resources and providing both compiled and minified distribution files, as well as raw source files.
         </p>
-        <pre class='border rounded border-dark bg-navy-blue text-left text-light'>
+        <pre class='px-5 border rounded border-dark bg-navy-blue text-left text-light'>
 
-  source/
-    ├── create_table_in_phpmyadmin/
-    │     └── index.sql
-    ├── js/
-    │     ├── auto_sign_out.js
-    │     ├── auto_sign_out.js
-    │     └── resize_page.js
-    ├── php/
-    │     ├── blog_configuration/
-    |     |   ├── add_post.php
-    |     |   ├── get_posts.php
-    |     |   ├── remove_posts.php
-    |     |   └── sort_post.php
-    │     ├── fetch_data/
-    |     |   ├── connection.php
-    |     |   └── fetch.php
-    │     ├── login/
-    |     |   ├── login.php
-    |     |   └── logout.php
-    │     └── parts_of_a_website/
-    |         └── footer.php
-    ├── style/
-    │   └── style.css
-    ├── 404.php
-    ├── add_post.php
-    ├── documentation.php
-    ├── index.php
-    ├── LICENSE
-    └── login.php
+source/
+  ├── create_table_in_phpmyadmin/
+  │     └── index.sql
+  ├── js/
+  │     ├── auto_sign_out.js
+  │     ├── auto_sign_out.js
+  │     └── resize_page.js
+  ├── php/
+  │     ├── blog_configuration/
+  |     |   ├── add_post.php
+  |     |   ├── get_posts.php
+  |     |   ├── remove_posts.php
+  |     |   └── sort_post.php
+  │     ├── fetch_data/
+  |     |   ├── connection.php
+  |     |   └── fetch.php
+  │     ├── login/
+  |     |   ├── login.php
+  |     |   └── logout.php
+  │     └── parts_of_a_website/
+  |         └── footer.php
+  ├── style/
+  │   └── style.css
+  ├── 404.php
+  ├── add_post.php
+  ├── documentation.php
+  ├── index.php
+  ├── LICENSE
+  └── login.php
         </pre>
 
         <p class='h4 text-left text-info' id="list-item-2">Components</p>

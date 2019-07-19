@@ -47,7 +47,7 @@
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Documentation</a>
+              href="documentation.php">Documentation</a>
           </li>
           <li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"

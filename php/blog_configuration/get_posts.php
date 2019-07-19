@@ -6,7 +6,39 @@ require_once 'php/fetch_data/connection.php';
 class Get_posts extends Fetch {
   private $loggedBool = '';
   private $content = '';
+  private $type = '';
   private $result = '';
+
+  private function get_all_posts() {
+    if(isset($_SESSION['postFilter'])) {
+      $this->content = $this->fetch($_SESSION['postFilter']);
+    } else {
+      $this->content = $this->fetch('SELECT * FROM Blog_content');
+    }
+
+    // Check if the user is logged in
+    if($this->content == 0) {
+      $this->noSuchPosts();
+    } else if($this->loggedBool == true) {
+      $this->editable_blog();
+    } else {
+      $this->simple_blog();
+    }
+    return $this->result;
+  }
+
+  /*
+   * Return list of titles of posts
+   */
+  private function get_title_of_posts() {
+    $this->content = $this->fetch('SELECT id, title FROM Blog_content');
+    $this->result = '';
+    foreach($this->content as $value) {
+      $this->result .= '<a onclick="queryToPHP(' . $value['id'] . ', \'id\')" ' .
+      'class="px-4 btn btn-sm text-info">' . $value['title'] . '</a><br>';
+    }
+    return $this->result;
+  }
 
   /*
    * Return simple blog without buttons to remove posts
@@ -25,6 +57,7 @@ class Get_posts extends Fetch {
           '<p>' . $value['content'] . '</p>' .
       '</div>';
     }
+    return $this->result;
   }
 
   /*
@@ -47,31 +80,30 @@ class Get_posts extends Fetch {
           '<p>' . $value['content'] . '</p>' .
       '</div>';
     }
+    return $this->result;
   }
 
+  /*
+   * Return information about no such posts
+   */
   private function noSuchPosts() {
     $this->result =
     '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
       '<a href="index.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
         text-info">There is no such post you\'re looking for.</a>' .
     '</div>';
+    return $this->result;
   }
 
-  public function return_html($loggedBool) {
+  public function return_html($loggedBool, $type) {
     $this->loggedBool = $loggedBool;
-    $this->content = $this->fetch('SELECT * FROM Blog_content');
-    if(isset($_SESSION['postFilter'])) {
-      $this->content = $this->fetch($_SESSION['postFilter']);
+    $this->type = $type;
+    if($this->type == 'all') {
+      $this->result = $this->get_all_posts();
+    } else if($this->type == 'title') {
+      $this->result = $this->get_title_of_posts();
     }
 
-    // Check if the user is logged in
-    if($this->content == 0) {
-      $this->noSuchPosts();
-    } else if($this->loggedBool == true) {
-      $this->editable_blog();
-    } else {
-      $this->simple_blog();
-    }
     return $this->result;
   }
 }
