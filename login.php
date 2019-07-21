@@ -21,12 +21,11 @@
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
 </head>
-<body class='w-100 container-fluid m-0 p-0 row bg-gray text-center'>
-
-  <header class='col-sm-12 row mx-0 justify-content-between bg-navy-blue'>
-    <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-navy-blue">
+<body>
+  <header>
+    <nav class="w-100 px-3 navbar navbar-expand-lg navbar-dark bg-navy-blue">
       <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
-      <button class="navbar-toggler btn bg-transparent" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -54,43 +53,51 @@
               href="index.php">About</a>
           </li>
         </ul>
+        <ul class="navbar-nav ml-auto justify-content-end">
+          <li class="nav-item active d-none d-lg-block">
+            <a class="w-100 px-3 py-3 py-lg-2 btn bg-transparent text-left text-light"
+              href="login.php">sign in</a>
+          </li>
+        </ul>
       </div>
     </nav>
   </header>
 
-  <main class='container-fluid row px-0 pt-5 mx-auto text-light'>
-    <div class="mx-auto <?php if($msgBool) echo 'd-block'; else echo 'd-none'; ?>">
-      <div class="loginWindowW alert alert-danger alert-dismissible fade show text-left" role="alert">
-        <?php if($msgBool) echo $msg; ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <main class='bg-gray'>
+    <div class='container-fluid row px-0 py-5 mx-auto text-light'>
+      <div class="mx-auto <?php if($msgBool) echo 'd-block'; else echo 'd-none'; ?>">
+        <div class="loginWindowW alert alert-danger alert-dismissible fade show" role="alert">
+          <?php if($msgBool) echo $msg; ?>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class='w-100 pb-5 mx-0 row justify-content-around'>
-      <div class='loginWindowW loginWindowH p-5 bg-navy-blue rounded'>
-        <p class='h4 text-info'>Welcome back!</p>
-        <p class='pb-4 text-muted'>We're so excited to see you again!</p>
+      <div class='w-100 mx-0 row justify-content-around'>
+        <div class='loginWindowW loginWindowH p-5 bg-navy-blue rounded border border-dark'>
+          <p class='h4 text-info'>Welcome back!</p>
+          <p class='pb-4 text-muted'>We're so excited to see you again!</p>
 
-        <form action='php/login/login.php' method='post' class='col-sm-12 mx-auto'>
-          <p class="p-1 m-0 text-left text-muted">Email</p>
-          <input type="text" name="username" autofocus
-            class='mx-auto mb-3 form-control bg-dark border-dark text-light'>
+          <form action='php/login/login.php' method='post' class='col-sm-12 mx-auto'>
+            <p class="p-1 m-0 text-muted">Email</p>
+            <input type="text" name="username" autofocus
+              class='mx-auto mb-3 form-control bg-dark border-dark text-light'>
 
-          <p class="p-1 m-0 text-left text-muted">Password</p>
-          <input type="password" name="password"
-            class='mx-auto form-control bg-dark border-dark text-light'>
+            <p class="p-1 m-0 text-muted">Password</p>
+            <input type="password" name="password"
+              class='mx-auto form-control bg-dark border-dark text-light'>
 
-          <a class="w-100 px-1 mb-2 btn bg-transparent text-left text-info"
-            href='login.php'>You forgot password ?</a>
-          <input type="submit" value="Sign in" class='w-100 px-5 my-1 btn btn-info'>
+            <a class="w-100 px-1 mb-2 btn text-left text-info"
+              href='login.php'>You forgot password ?</a>
+            <input type="submit" value="Sign in" class='w-100 px-5 my-1 btn btn-info'>
 
-          <div class="w-100 px-1 bg-transparent text-left">
-            <span class='text-muted'>You haven't an account?</span>
-            <a href='login.php' class='btn text-info px-0'>Register</a>
-          </div>
-        </form>
+            <div class="w-100 px-1">
+              <span class='text-muted'>You haven't an account?</span>
+              <a href='login.php' class='btn text-info px-0'>Register</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </main>

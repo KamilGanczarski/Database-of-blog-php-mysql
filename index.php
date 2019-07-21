@@ -30,10 +30,9 @@
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
 </head>
-<body class='w-100 container-fluid m-0 p-0 row bg-gray text-center'>
-
-  <header class='col-sm-12 row mx-0 justify-content-between bg-navy-blue'>
-    <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-navy-blue">
+<body>
+  <header>
+    <nav class="w-100 px-3 navbar navbar-expand-lg navbar-dark bg-navy-blue">
       <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
       <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -104,8 +103,8 @@
     </nav>
   </header>
 
-  <main class='container-fluid row mx-auto text-light'>
-    <div class='w-100 mx-0 row py-3 justify-content-around'>
+  <main>
+    <div class='w-100 mx-0 row py-3 justify-content-around bg-gray'>
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
         <nav class="accordion mb-4" id="accordionExample">
           <div class="card bg-transparent border rounded-top border-dark">

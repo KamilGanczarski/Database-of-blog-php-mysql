@@ -21,16 +21,15 @@
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>Document</title>
   <link rel='stylesheet' href='style/style.css'>
-  <meta name="theme-color" content="#000"/>
+  <meta name='theme-color' content='#000'/>
   <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
 </head>
-<body class='w-100 container-fluid m-0 p-0 row bg-gray text-center'>
-
-  <header class='col-sm-12 row mx-0 justify-content-between bg-navy-blue'>
-    <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-navy-blue">
+<body>
+  <header>
+    <nav class="w-100 px-3 navbar navbar-expand-lg navbar-dark bg-navy-blue">
       <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
       <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -100,21 +99,21 @@
     </nav>
   </header>
 
-  <main class='container-fluid row mx-auto text-light'>
-    <div class='w-100 mx-0 row py-3 justify-content-around'>
+  <main>
+    <div class='w-100 mx-0 row py-3 justify-content-around bg-gray'>
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
-        <div id="list-example" class="list-group">
+        <nav class="list-group" id="nav-list">
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-1">What’s included</a>
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-2">Components</a>
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Item 3</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-4">Item 4</a>
-        </div>
+        </nav>
       </div>
 
-      <div class='col-sm-12 col-lg-8 p-0 mt-3' data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
-        <p class='h4 text-left text-info' id="list-item-1">What’s included</p>
-        <p class='text-left text-light'>
-          You’ll find the following directories and files, grouping common resources and providing both compiled and minified distribution files, as well as raw source files.
+      <div class='col-sm-12 col-lg-8 p-0 mt-3 scrollspy-example' data-spy="scroll" data-target="#nav-list" data-offset="0">
+        <p class='h4 px-3 text-info' id="list-item-1">What’s included</p>
+        <p class='px-3 text-light'>
+          You’ll find the following directories and files, grouping common resources
+          and providing both compiled and minified distribution files, as well as raw source files.
         </p>
         <pre class='px-5 border rounded border-dark bg-navy-blue text-left text-light'>
 
@@ -149,8 +148,32 @@ source/
   └── login.php
         </pre>
 
-        <p class='h4 text-left text-info' id="list-item-2">Components</p>
-        <p class='text-left text-light'></p>
+        <p class='h4 px-3 text-info' id="list-item-2">Page views</p>
+        <p class='px-3 text-light'>
+          Page views on last week
+        </p>
+        <div class='px-5 py-3 mb-3 border rounded border-dark bg-navy-blue text-left text-light'>
+          <script src='js/Statistic_view.js'></script>
+          <canvas id='canvas_field' width="1000" height="500" class='w-100'></canvas>
+          <script>
+            let Diagram = new Statistic_view(
+              'canvas_field',
+              [
+                { day: 'Monday', y: 8600 },
+                { day: 'Tuesday', y: 12040 },
+                { day: 'Wednesday', y: 10880 },
+                { day: 'Thursday', y: 19200 },
+                { day: 'Friday', y: 14800 },
+                { day: 'Saturday', y: 19800 },
+                { day: 'Sunday', y: 22000 }
+              ]);
+            Diagram.render();
+          </script>
+        </div>
+
+        <p class='h4 px-3 text-info' id="list-item-3">Diagrams</p>
+        <p class='px-3 text-light'></p>
+        <div class='px-5 py-3 border rounded border-dark bg-navy-blue text-left text-light'></div>
       </div>
     </div>
   </main>

@@ -47,7 +47,7 @@ class Get_posts extends Fetch {
     $this->result = '';
     foreach($this->content as $value) {
       $this->result .=
-      '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
+      '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
         '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left
           text-info">' . $value['title'] . '</a>' .
           '<div class="row px-3 justify-content-between">' .
@@ -67,7 +67,7 @@ class Get_posts extends Fetch {
     $this->result = '';
     foreach($this->content as $value) {
       $this->result .=
-      '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
+      '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
         '<button class="close text-light" aria-label="Close" onclick="queryToPHP(' . $value['id'] . ', \'remove\')">
           <span aria-hidden="true">&times;</span>
         </button>' .
@@ -88,7 +88,7 @@ class Get_posts extends Fetch {
    */
   private function noSuchPosts() {
     $this->result =
-    '<div class="w-100 p-4 mb-2 text-left border rounded border-dark bg-navy-blue">' .
+    '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
       '<a href="index.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
         text-info">There is no such post you\'re looking for.</a>' .
     '</div>';

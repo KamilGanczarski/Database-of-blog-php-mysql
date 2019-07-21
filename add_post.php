@@ -32,10 +32,9 @@
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
 </head>
-<body class='w-100 container-fluid m-0 p-0 row bg-gray text-center'>
-
-  <header class='col-sm-12 row mx-0 justify-content-between bg-navy-blue'>
-    <nav class="w-100 px-0 navbar navbar-expand-lg navbar-dark bg-navy-blue">
+<body>
+  <header>
+    <nav class="w-100 px-3 navbar navbar-expand-lg navbar-dark bg-navy-blue">
       <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
       <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -105,9 +104,9 @@
     </nav>
   </header>
 
-  <main class='container-fluid row mx-auto text-light'>
-    <div class="mx-auto mt-4 <?php if($msgBool) echo 'd-none'; else echo 'd-block'; ?>">
-      <div class="loginWindowW alert alert-danger alert-dismissible fade show text-left m-0" role="alert">
+  <main class='bg-gray'>
+    <div class="px-4 pt-4 mx-0 <?php if($msgBool) echo 'd-none'; else echo 'd-block'; ?>">
+      <div class="w-50 alert alert-danger alert-dismissible fade show text-left mx-auto my-0" role="alert">
         <?php if(!$msgBool) echo $msg; ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -115,19 +114,19 @@
       </div>
     </div>
 
-    <div class='w-100 mx-0 row py-4 justify-content-around'>
-      <div class='col-sm-12 bg-navy-blue p-4 text-left'>
+    <div class='w-100 px-4 py-4 mx-0 row justify-content-around'>
+      <div class='col-sm-12 bg-navy-blue p-4'>
         <p class='h5 text-info'>Create post</p>
 
         <form action="php/blog_configuration/add_post.php" method="post" id='add_post'>
           <div class="w-100 m-0 p-0 row justify-content-between">
             <div class="col-sm-8 p-0">
-              <p class="p-1 m-0 text-left text-muted">Post title</p>
+              <p class="p-1 m-0 text-muted">Post title</p>
               <input type="text" name="post_title" maxlength='255'
                 class='mb-3 form-control form-control-sm bg-dark border-dark text-light'>
             </div>
-            <div class="col-sm-3 p-0">
-              <p class="p-1 m-0 text-left text-muted">Post type</p>
+            <div class="col-sm-3 p-0 mb-3">
+              <p class="p-1 m-0 text-muted">Post type</p>
               <select name="post_type" class="w-100 form-control form-control-sm form-control-dark">
                 <option selected>Type</option>
                 <option value='JavaScript'>JavaScript</option>
@@ -141,7 +140,7 @@
               </select>
             </div>
           </div>
-          <p class="p-1 m-0 text-left text-muted">Post Content</p>
+          <p class="p-1 m-0 text-muted">Post Content</p>
           <textarea form='add_post' name='post_content' rows="13"
             class='w-100 p-2 bg-dark border-dark text-light'></textarea>
           <div class="w-100 text-right">
