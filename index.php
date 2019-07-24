@@ -103,8 +103,8 @@
     </nav>
   </header>
 
-  <main>
-    <div class='w-100 mx-0 row py-3 justify-content-around bg-gray'>
+  <main class='bg-gray'>
+    <div class='w-100 mx-0 row py-3 justify-content-around'>
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
         <nav class="accordion mb-4" id="accordionExample">
           <div class="card bg-transparent border rounded-top border-dark">
@@ -160,7 +160,6 @@
       </div>
 
       <div class='col-sm-12 col-lg-8 p-0 mt-3'>
-        <div class="w-100 text-left">
           <?php
             if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
               echo '<button onclick=\'queryToPHP("All", "all")\' class="btn btn-dark mx-2 mb-2">' .
@@ -169,7 +168,6 @@
               </button>';
             };
           ?>
-        </div>
         <?php
           $Get_posts = new Get_posts();
           echo $Get_posts->return_html($loggedBool, 'all');

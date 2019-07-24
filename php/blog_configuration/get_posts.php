@@ -15,8 +15,9 @@ class Get_posts extends Fetch {
     } else {
       $this->content = $this->fetch('SELECT * FROM Blog_content');
     }
-
-    // Check if the user is logged in
+    /*
+     * Check if the user is logged in
+     */
     if($this->content == 0) {
       $this->noSuchPosts();
     } else if($this->loggedBool == true) {
@@ -44,7 +45,9 @@ class Get_posts extends Fetch {
    * Return simple blog without buttons to remove posts
    */
   private function simple_blog() {
-    $this->result = '';
+    $this->result = '<button class="btn btn-dark mx-2 mb-2">' .
+     '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
+    </button>';
     foreach($this->content as $value) {
       $this->result .=
       '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
@@ -64,7 +67,9 @@ class Get_posts extends Fetch {
    * Return editable blog with buttons to remove posts
    */
   private function editable_blog() {
-    $this->result = '';
+    $this->result = '<button class="btn btn-dark mx-2 mb-2">' .
+     '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
+    </button>';
     foreach($this->content as $value) {
       $this->result .=
       '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .

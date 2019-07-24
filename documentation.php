@@ -115,7 +115,7 @@
           You’ll find the following directories and files, grouping common resources
           and providing both compiled and minified distribution files, as well as raw source files.
         </p>
-        <pre class='px-5 border rounded border-dark bg-navy-blue text-left text-light'>
+        <pre class='px-5 border rounded border-dark bg-navy-blue text-light'>
 
 source/
   ├── create_table_in_phpmyadmin/
@@ -152,28 +152,70 @@ source/
         <p class='px-3 text-light'>
           Page views on last week
         </p>
-        <div class='px-5 py-3 mb-3 border rounded border-dark bg-navy-blue text-left text-light'>
+        <div class='px-4 py-4 mb-3 border rounded border-dark bg-navy-blue text-light'>
           <script src='js/Statistic_view.js'></script>
-          <canvas id='canvas_field' width="1000" height="500" class='w-100'></canvas>
+          <canvas id='canvas_field0' width="1000" height="500" class='w-100'></canvas>
           <script>
-            let Diagram = new Statistic_view(
-              'canvas_field',
+            let Canvas_field = new Statistic_view(
+              'canvas_field', 'canvas_field0',
               [
-                { day: 'Monday', y: 8600 },
-                { day: 'Tuesday', y: 12040 },
-                { day: 'Wednesday', y: 10880 },
-                { day: 'Thursday', y: 19200 },
-                { day: 'Friday', y: 14800 },
-                { day: 'Saturday', y: 19800 },
-                { day: 'Sunday', y: 22000 }
+                { label_x: 'Monday', y: 50, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Tuesday', y: 330, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Wednesday', y: 150, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Thursday', y: 300, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Friday', y: 200, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Saturday', y: 300, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Saturday', y: 350, radius: 5, tip: 'You are over 100,100' },
+                { label_x: 'Sunday', y: 400, radius: 6, tip: 'You are over 100,100' }
               ]);
-            Diagram.render();
+            Canvas_field.render();
           </script>
         </div>
 
         <p class='h4 px-3 text-info' id="list-item-3">Diagrams</p>
         <p class='px-3 text-light'></p>
-        <div class='px-5 py-3 border rounded border-dark bg-navy-blue text-left text-light'></div>
+        <div class='row m-0 px-5 py-5 border rounded border-dark bg-navy-blue text-light'>
+          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='diagram_line0'></div>
+          <script>
+            let Diagram_line0 = new Statistic_view(
+              'diagram_line', 'diagram_line0',
+              [
+                { label: 'Views on different devices', x: 0 },
+                { label: 'Desktop (2560x1600)', x: 20 },
+                { label: 'Desktop (2560x1080)', x: 20 },
+                { label: 'Desktop (1920x1080)', x: 60 },
+                { label: 'Desktop (1440x900)', x: 50 },
+                { label: 'Desktop (1366x768)', x: 40 },
+                { label: 'Desktop (1280x800)', x: 30 },
+                { label: 'Tablet (1024x768)', x: 20 },
+                { label: 'Tablet (768x1024)', x: 20 },
+                { label: 'Phone (720x450)', x: 20 },
+                { label: 'Phone (320x480)', x: 20 }
+              ]);
+            Diagram_line0.render();
+          </script>
+
+          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='diagram_line1'></div>
+          <script>
+            let Diagram_line1 = new Statistic_view(
+              'diagram_line', 'diagram_line1',
+              [
+                { label: 'Views on different devices', x: 0 },
+                { label: 'Desktop (2560x1600)', x: 20 },
+                { label: 'Desktop (2560x1080)', x: 20 },
+                { label: 'Desktop (1920x1080)', x: 60 },
+                { label: 'Desktop (1440x900)', x: 50 },
+                { label: 'Desktop (1366x768)', x: 40 },
+                { label: 'Desktop (1280x800)', x: 30 },
+                { label: 'Tablet (1024x768)', x: 20 },
+                { label: 'Tablet (768x1024)', x: 20 },
+                { label: 'Phone (720x450)', x: 20 },
+                { label: 'Phone (320x480)', x: 20 }
+              ]);
+            Diagram_line1.render();
+          </script>
+        </div>
+
       </div>
     </div>
   </main>
