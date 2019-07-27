@@ -1,40 +1,54 @@
 class Statistic_view {
   constructor(type, id, data) {
     this.type = type;
-    this.id = id;
     this.canvas = $('#' + id)[0];
     this.data = data;
     this.content = '';
-    this.vertical_labels = 10;
-    this.distance_x = 0;
-    this.distance_y = 0;
-
-    this.vertical_scope = 10;
-    this.canvas_width = 1000;
-    this.current_index = 0;
-    this.current_value = 0;
-    this.column_width = (this.canvas_width - 100) / this.data.length;
-
-    this.line_hor_start = 0;
-    this.line_hor_end = 0;
-    this.line_ver_start = 0;
-    this.line_ver_end = 0;
+    this.ctx;
+    this.offset;
+    this.offset_x;
+    this.offset_y;
+    this.limits = {
+      min: 0, // Min value of vertical label
+      max: 0, // Max value of vertical label
+      scope: 0,
+      bottom: 0 // number to create vertical labels
+    };
+    this.distance = {
+      x: 0, // The distance between two vertical lines
+      y: 0 // The distance between two horizontal lines
+    };
+    this.line = {
+      hor_start: 0, // First x position for horizontal lines
+      hor_end: 0, // Last x position for horizontal lines
+      ver_start: 0, // First y position for vertical lines
+      ver_end: 0, // Last y position for vertical lines
+    };
   }
 
-  canvas_dots() {
+  line_chart() {
     this.ctx = this.canvas.getContext("2d");
-    this.distance_x = (this.canvas.width - 200) / (this.data.length - 1);
-    this.distance_y = (this.canvas.height - 100) / (this.vertical_labels);
-    this.line_hor_start = 100;
-    this.line_hor_end = this.canvas.width - 100;
-    this.line_ver_start = 20;
-    this.line_ver_end = this.canvas.height - 80;
+    this.distance.x = (this.canvas.width - 200) / (this.data.length - 1);
+    this.limits.min = this.get_limits_y_value('min');
+    this.limits.max = this.get_limits_y_value('max');
+    this.limits.max = this.limits.max.y / 10 + 1;
+    this.limits.min = this.limits.min.y / 10 - 1;
+    this.limits.scope = this.limits.max - this.limits.min;
+    if(this.limits.scope < 0) {
+      this.limits.scope * -1;
+    }
+    this.limits.bottom = (this.limits.max - this.limits.scope);
+    this.distance.y = (this.canvas.height - 100) / this.limits.scope;
+    this.line.hor_start = 100;
+    this.line.hor_end = this.canvas.width - 100;
+    this.line.ver_start = 20;
+    this.line.ver_end = this.canvas.height - 80;
 
     this.reOffset();
     window.onscroll = (e) => { this.reOffset(); }
     window.onresize = (e) => { this.reOffset(); }
     this.canvas.addEventListener('mousemove', e => {
-      this.handleMouseMove(e);
+      this.handle_mouse_move(e);
     });
     this.draw();
   }
@@ -49,28 +63,41 @@ class Statistic_view {
    * Return corrent y value, because canvas start from top
    */
   get_y(y) {
+    y /= 10;
+    y = (y - this.limits.bottom) * this.distance.y;
     return - y + 420;
+  }
+
+  get_limits_y_value(type) {
+    let limit_value;
+    limit_value = this.data.reduce(function(prev, current) {
+      if(type === 'min') {
+        return (prev.y < current.y) ? prev : current
+      } else if(type === 'max') {
+        return (prev.y > current.y) ? prev : current
+      }
+    });
+    return limit_value;
   }
 
   draw() {
     for(this.i = 0; this.i < this.data.length; this.i++){
       let d = this.data[this.i];
-      this.current_value = this.data[this.i];
-      d.x = this.distance_x * this.i + 100;
+      d.x = this.distance.x * this.i + 100;
       /*
        * Vertical lines
        */
       this.ctx.beginPath();
-      this.ctx.moveTo(d.x, this.line_ver_start);
-      this.ctx.lineTo(d.x, this.line_ver_end);
-      this.ctx.strokeStyle = '#55555540'; //                                 to change
-      // this.ctx.strokeStyle = '#fff'; //                                         to remove
+      this.ctx.moveTo(d.x, this.line.ver_start);
+      this.ctx.lineTo(d.x, this.line.ver_end);
+      this.ctx.strokeStyle = '#55555540';
       this.ctx.lineWidth = 4;
       this.ctx.stroke();
       /*
        * Vertical labels
        */
       this.ctx.beginPath();
+      this.ctx.font = "14px Arial";
       this.ctx.fillStyle = '#fff';
       this.ctx.fillText(this.data[this.i].label_x, d.x-20, 480);
       this.ctx.fill();
@@ -86,37 +113,38 @@ class Statistic_view {
       /*
        * Line to connect circles
        */
-      this.current_index++;
-      d.x = this.distance_x*(this.i + 1) + 100;
       if(this.i != this.data.length - 1) {
-        this.ctx.lineTo(d.x, this.get_y(this.data[this.i+1].y));
+        this.ctx.moveTo(d.x+1, this.get_y(this.data[this.i].y));
+        d.x = this.distance.x*(this.i + 1) + 100;
+        this.ctx.lineTo(d.x-2, this.get_y(this.data[this.i+1].y));
         this.ctx.strokeStyle = '#17a2b8';
         this.ctx.stroke();
       }
     }
-    this.current_index = 0;
 
-    for(this.i = 0; this.i <= this.vertical_labels; this.i++) {
-      let dy = this.distance_y * this.i + 20;
+    for(this.i = 0; this.i <= this.limits.scope; this.i++) {
+      let dy = this.distance.y * this.i + 20;
       /*
        * Horizontaly labels
        */
       this.ctx.beginPath();
       this.ctx.fillStyle = '#fff';
-      this.ctx.fillText(10 - this.i, 40, dy);
+      this.ctx.fillText(
+        (this.limits.scope - this.i + this.limits.bottom) * 10,
+        40, dy
+      );
       /*
        * Horizontaly lines
        */
-      this.ctx.moveTo(this.line_hor_start - 2, dy);
-      this.ctx.lineTo(this.line_hor_end + 2, dy);
+      this.ctx.moveTo(this.line.hor_start - 2, dy);
+      this.ctx.lineTo(this.line.hor_end + 2, dy);
       this.ctx.lineWidth = 4;
-      this.ctx.strokeStyle = '#55555540'; //                                 to change
-      // this.ctx.strokeStyle = '#fff'; //                                         to remove
+      this.ctx.strokeStyle = '#55555540';
       this.ctx.stroke();
     }
   }
 
-  handleMouseMove(e) {
+  handle_mouse_move(e) {
     /*
      * Handling this event
      */
@@ -129,15 +157,21 @@ class Statistic_view {
 
     for(this.i = 0; this.i < this.data.length; this.i++) {
       let d = this.data[this.i];
-      d.x = this.distance_x * this.i + 70;
+      d.x = this.distance.x * this.i + 70;
       let dx = this.mouse_x - d.x - 30;
       let dy = this.mouse_y - this.get_y(d.y);
       // if(dx * dx + dy * dy < d.radius * d.radius) {
       if(dx * dx + dy * dy < 30 * 30) {
         this.ctx.fillStyle = "#000000b0";
-        this.ctx.fillRect(d.x + 30, this.get_y(d.y), 150, 35);
-        this.ctx.fillStyle = "#fff";
-        this.ctx.fillText(d.tip, d.x + 40, this.get_y(d.y) + 22);
+        if(this.i > this.data.length / 2) {
+          this.ctx.fillRect(d.x + 30, this.get_y(d.y), -150, 35);
+          this.ctx.fillStyle = "#fff";
+          this.ctx.fillText(d.tip + d.y, d.x + 40 - 150, this.get_y(d.y) + 22);
+        } else {
+          this.ctx.fillRect(d.x + 30, this.get_y(d.y), 150, 35);
+          this.ctx.fillStyle = "#fff";
+          this.ctx.fillText(d.tip + d.y, d.x + 40, this.get_y(d.y) + 22);
+        }
       }
     }
   }
@@ -147,7 +181,7 @@ class Statistic_view {
     return 'style = "background: linear-gradient(to right, #252830 ' + number + '%, #1a1c22 ' + number + '%);"';
   }
 
-  diagram_line() {
+  horizontal_bar_chart() {
     this.content = '<div class="px-0 mx-0 text-light border-bottom border rounded border-dark">' +
         '<div class="px-3 py-1 text-light border-bottom border-dark">' +
           'Sort by' +
@@ -164,34 +198,34 @@ class Statistic_view {
       '</div>';
 
     this.content = '<div class="px-0 mx-0 text-light border-bottom border rounded border-dark">' +
-        '<div class="px-3 py-2 text-light border-bottom border-dark" ' +
-          this.get_style_percent(this.data[0].x) + '>' +
-          this.data[0].label +
-        '</div>';
+      '<div class="px-3 py-2 text-light border-bottom border-dark" ' +
+        this.get_style_percent(this.data[0].x) + '>' +
+        this.data[0].label +
+      '</div>';
 
-      for(this.i = 1; this.i < this.data.length; this.i++) {
-          if(this.i != this.data.length - 1) {
-            this.content += '<div class="px-3 py-2 text-muted border-bottom border-dark" ' +
-              this.get_style_percent(this.data[this.i].x) + '>' +
-                this.data[this.i].label +
-              '</div>';
-          } else {
-            this.content += '<div class="px-3 py-2 text-muted" ' +
-              this.get_style_percent(this.data[this.i].x) + '>' +
-                this.data[this.i].label +
-              '</div>';
-          }
+    for(this.i = 1; this.i < this.data.length; this.i++) {
+      if(this.i != this.data.length - 1) {
+        this.content += '<div class="px-3 py-2 text-muted border-bottom border-dark" ' +
+          this.get_style_percent(this.data[this.i].x) + '>' +
+            this.data[this.i].label +
+          '</div>';
+      } else {
+        this.content += '<div class="px-3 py-2 text-muted" ' +
+          this.get_style_percent(this.data[this.i].x) + '>' +
+            this.data[this.i].label +
+        '</div>';
       }
-      this.centent += '</div></div>';
+    }
+    this.centent += '</div></div>';
     this.canvas.innerHTML = this.content;
   }
 
 
   render() {
-    if(this.type == 'canvas_field') {
-      this.canvas_dots();
-    } else if(this.type == 'diagram_line') {
-      this.diagram_line();
+    if(this.type == 'line_chart') {
+      this.line_chart();
+    } else if(this.type == 'horizontal_bar_chart') {
+      this.horizontal_bar_chart();
     }
   }
 }

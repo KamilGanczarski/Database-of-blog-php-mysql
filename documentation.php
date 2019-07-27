@@ -123,7 +123,8 @@ source/
   ├── js/
   │     ├── auto_sign_out.js
   │     ├── auto_sign_out.js
-  │     └── resize_page.js
+  │     ├── resize_page.js
+        └──  Statistic_view.js
   ├── php/
   │     ├── blog_configuration/
   |     |   ├── add_post.php
@@ -154,32 +155,38 @@ source/
         </p>
         <div class='px-4 py-4 mb-3 border rounded border-dark bg-navy-blue text-light'>
           <script src='js/Statistic_view.js'></script>
-          <canvas id='canvas_field0' width="1000" height="500" class='w-100'></canvas>
+          <canvas id='line_chart0' width="1000" height="500" class='w-100'></canvas>
           <script>
-            let Canvas_field = new Statistic_view(
-              'canvas_field', 'canvas_field0',
-              [
-                { label_x: 'Monday', y: 50, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Tuesday', y: 330, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Wednesday', y: 150, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Thursday', y: 300, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Friday', y: 200, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Saturday', y: 300, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Saturday', y: 350, radius: 5, tip: 'You are over 100,100' },
-                { label_x: 'Sunday', y: 400, radius: 6, tip: 'You are over 100,100' }
+            function random_y() {
+              return Math.ceil(Math.random()*9)*10;
+            }
+
+            let Line_chart0 = new Statistic_view(
+              type = 'line_chart',
+              id = 'line_chart0',
+              data = [
+                { label_x: 'Monday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Tuesday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Wednesday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Thursday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Friday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Saturday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Saturday', y: random_y(), radius: 5, tip: 'The value is equal ' },
+                { label_x: 'Sunday', y: random_y(), radius: 6, tip: 'The value is equal ' }
               ]);
-            Canvas_field.render();
+            Line_chart0.render();
           </script>
         </div>
 
         <p class='h4 px-3 text-info' id="list-item-3">Diagrams</p>
         <p class='px-3 text-light'></p>
         <div class='row m-0 px-5 py-5 border rounded border-dark bg-navy-blue text-light'>
-          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='diagram_line0'></div>
+          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='horizontal_bar_chart0'></div>
           <script>
-            let Diagram_line0 = new Statistic_view(
-              'diagram_line', 'diagram_line0',
-              [
+            let Horizontal_bar_chart0 = new Statistic_view(
+              type = 'horizontal_bar_chart',
+              id = 'horizontal_bar_chart0',
+              data = [
                 { label: 'Views on different devices', x: 0 },
                 { label: 'Desktop (2560x1600)', x: 20 },
                 { label: 'Desktop (2560x1080)', x: 20 },
@@ -192,14 +199,15 @@ source/
                 { label: 'Phone (720x450)', x: 20 },
                 { label: 'Phone (320x480)', x: 20 }
               ]);
-            Diagram_line0.render();
+            Horizontal_bar_chart0.render();
           </script>
 
-          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='diagram_line1'></div>
+          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='horizontal_bar_chart1'></div>
           <script>
-            let Diagram_line1 = new Statistic_view(
-              'diagram_line', 'diagram_line1',
-              [
+            let Horizontal_bar_chart1 = new Statistic_view(
+              type = 'horizontal_bar_chart',
+              id = 'horizontal_bar_chart1',
+              data = [
                 { label: 'Views on different devices', x: 0 },
                 { label: 'Desktop (2560x1600)', x: 20 },
                 { label: 'Desktop (2560x1080)', x: 20 },
@@ -212,7 +220,7 @@ source/
                 { label: 'Phone (720x450)', x: 20 },
                 { label: 'Phone (320x480)', x: 20 }
               ]);
-            Diagram_line1.render();
+            Horizontal_bar_chart1.render();
           </script>
         </div>
 
