@@ -104,8 +104,8 @@
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
         <nav class="list-group" id="nav-list">
           <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-1">What’s included</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-2">Components</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Item 3</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-2">Page views</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Diagrams</a>
         </nav>
       </div>
 
@@ -175,6 +175,7 @@ source/
                 { label_x: 'Sunday', y: random_y(), radius: 6, tip: 'The value is equal ' }
               ]);
             Line_chart0.render();
+
           </script>
         </div>
 
