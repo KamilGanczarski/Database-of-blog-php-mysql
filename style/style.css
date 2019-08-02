@@ -3,7 +3,7 @@
 }
 
 .bg-navy-blue {
-  background: #1a1c22;
+  background: #16181d;
 }
 
 .bg-gray {
@@ -41,7 +41,7 @@
   height: 100px;
   border: double 5px transparent;
   border-radius: 50%;
-  background-image: linear-gradient(#181818, #181818), radial-gradient(circle at top left, #181818, #181818, #17a0b5);
+  background-image: linear-gradient(#16181d, #16181d), radial-gradient(circle at top left, #16181d, #16181d, #17a0b5);
   background-origin: border-box;
   background-clip: content-box, border-box;
   animation: lds-dual-ring 1.3s linear infinite;

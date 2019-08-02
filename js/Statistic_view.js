@@ -28,21 +28,27 @@ class Statistic_view {
 
   line_chart() {
     this.ctx = this.canvas.getContext("2d");
-    this.distance.x = (this.canvas.width - 200) / (this.data.length - 1);
+    this.distance.x = (this.canvas.width * 0.89) / (this.data.length - 1);
     this.limits.min = this.get_limits_y_value('min');
     this.limits.max = this.get_limits_y_value('max');
     this.limits.max = this.limits.max.y / 10 + 1;
     this.limits.min = this.limits.min.y / 10 - 1;
+
+    // this.limits.min = this.limits.min.y / 10;
+    console.log(this.limits.min);
+    // this.limits.min = Math.floor(this.limits.min / 10) * 10;
+    // this.limits.min -= 1;
+
     this.limits.scope = this.limits.max - this.limits.min;
     if(this.limits.scope < 0) {
       this.limits.scope * - 1;
     }
-    this.limits.bottom = (this.limits.max - this.limits.scope);
-    this.distance.y = (this.canvas.height - 100) / this.limits.scope;
-    this.line.hor_start = 100;
-    this.line.hor_end = this.canvas.width - 100;
-    this.line.ver_start = 20;
-    this.line.ver_end = this.canvas.height - 80;
+    this.limits.bottom = this.limits.max - this.limits.scope;
+    this.distance.y = this.canvas.height * 0.8 / this.limits.scope;
+    this.line.hor_start = this.canvas.width * 0.06;
+    this.line.hor_end = this.canvas.width * 0.95;
+    this.line.ver_start = this.canvas.height * 0.04;
+    this.line.ver_end = this.canvas.height * 0.84;
 
     this.reOffset();
     window.onscroll = (e) => { this.reOffset(); }
@@ -83,7 +89,7 @@ class Statistic_view {
   draw() {
     for(this.i = 0; this.i < this.data.length; this.i++) {
       let d = this.data[this.i];
-      d.x = this.distance.x * this.i + 100;
+      d.x = this.distance.x * this.i + 60;
       /*
        * Vertical lines
        */
@@ -94,7 +100,7 @@ class Statistic_view {
       this.ctx.lineWidth = 4;
       this.ctx.stroke();
       /*
-       * Vertical labels
+       * Horizontal labels
        */
       this.ctx.beginPath();
       this.ctx.font = "14px Arial";
@@ -103,8 +109,8 @@ class Statistic_view {
       this.ctx.rotate(- Math.PI / 4);
       this.ctx.fillText(
         this.data[this.i].label_x,
-        - 300 + this.i * this.distance.x * 0.7,
-        this.line.ver_end - 20 + this.i * this.distance.x * 0.7
+        - 320 + this.i * this.distance.x * 0.7,
+        this.line.ver_end - 40 + this.i * this.distance.x * 0.7
       );
       this.ctx.restore();
       /*
@@ -113,15 +119,17 @@ class Statistic_view {
       this.ctx.beginPath();
       this.ctx.arc(d.x, this.get_y(d.y), d.radius, 0, Math.PI * 2);
       this.ctx.fillStyle = '#17a2b8';
-      this.ctx.closePath();
-      this.ctx.fill();
+      this.ctx.strokeStyle = '#17a2b8';
+      this.ctx.lineWidth = 0;
       this.ctx.stroke();
+      this.ctx.fill();
       /*
        * Line to connect circles
        */
+      this.ctx.beginPath();
       if(this.i != this.data.length - 1) {
         this.ctx.moveTo(d.x + 1, this.get_y(this.data[this.i].y));
-        d.x = this.distance.x * (this.i + 1) + 100;
+        d.x = this.distance.x * (this.i + 1) + 60;
         this.ctx.lineTo(d.x - 2, this.get_y(this.data[this.i + 1].y));
         this.ctx.strokeStyle = '#17a2b8';
         this.ctx.stroke();
@@ -131,16 +139,16 @@ class Statistic_view {
     for(this.i = 0; this.i <= this.limits.scope; this.i++) {
       let dy = this.distance.y * this.i + 20;
       /*
-       * Horizontaly labels
+       * Vertical labels
        */
       this.ctx.beginPath();
       this.ctx.fillStyle = '#fff';
       this.ctx.fillText(
         (this.limits.scope - this.i + this.limits.bottom) * 10,
-        40, dy
+        10, dy
       );
       /*
-       * Horizontaly lines
+       * Horizontal lines
        */
       this.ctx.moveTo(this.line.hor_start - 2, dy);
       this.ctx.lineTo(this.line.hor_end + 2, dy);
@@ -163,18 +171,17 @@ class Statistic_view {
 
     for(this.i = 0; this.i < this.data.length; this.i++) {
       let d = this.data[this.i];
-      d.x = this.distance.x * this.i + 70;
+      d.x = this.distance.x * this.i + 30;
       let dx = this.mouse_x - d.x - 30;
       let dy = this.mouse_y - this.get_y(d.y);
-      // if(dx * dx + dy * dy < d.radius * d.radius) {
-      if(dx * dx + dy * dy < 30 * 30) {
+      if(dx * dx + dy * dy < d.radius * d.radius * 36) {
         this.ctx.fillStyle = "#000000b0";
         if(this.i > this.data.length / 2) {
-          this.ctx.fillRect(d.x + 30, this.get_y(d.y), - 150, 35);
+          this.ctx.fillRect(d.x + 30, this.get_y(d.y), - 160, 35);
           this.ctx.fillStyle = "#fff";
-          this.ctx.fillText(d.tip + d.y, d.x + 40 - 150, this.get_y(d.y) + 22);
+          this.ctx.fillText(d.tip + d.y, d.x + 40 - 160, this.get_y(d.y) + 22);
         } else {
-          this.ctx.fillRect(d.x + 30, this.get_y(d.y), 150, 35);
+          this.ctx.fillRect(d.x + 30, this.get_y(d.y), 160, 35);
           this.ctx.fillStyle = "#fff";
           this.ctx.fillText(d.tip + d.y, d.x + 40, this.get_y(d.y) + 22);
         }

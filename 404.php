@@ -23,9 +23,9 @@
   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
 </head>
-<body class='w-100 container-fluid m-0 p-0 row bg-black text-center'>
+<body>
 
-  <header class='col-sm-12 row mx-0 text-center'>
+  <header class='container-fluid row mx-0 text-center bg-navy-blue'>
     <h3 class='w-100 text-info pt-5 mt-5'>404 Page not found</h3>
     <p class='w-100 text-info'>
       The page you were looking for doesn't exist or an other error occurred.
@@ -36,7 +36,7 @@
     </p>
   </header>
 
-  <main class='container-fluid row mx-auto text-light'>
+  <main class='container-fluid row mx-auto text-light bg-navy-blue'>
     <div class="mx-auto my-auto rounded-circle">
       <div class="lds-dual-ring"></div>
     </div>

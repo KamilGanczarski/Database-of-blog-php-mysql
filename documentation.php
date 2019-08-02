@@ -158,21 +158,25 @@ source/
           <canvas id='line_chart0' width="1000" height="500" class='w-100'></canvas>
           <script>
             function random_y() {
-              return Math.ceil(Math.random()*9)*10;
+              return Math.ceil(Math.random()*9)*15;
             }
 
             let Line_chart0 = new Statistic_view(
               type = 'line_chart',
               id = 'line_chart0',
               data = [
-                { label_x: 'Monday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Tuesday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Wednesday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Thursday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Friday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Saturday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Saturday', y: random_y(), radius: 5, tip: 'The value is equal ' },
-                { label_x: 'Sunday', y: random_y(), radius: 6, tip: 'The value is equal ' }
+                { label_x: 'January', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'February', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'March', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'April', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'May', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'June', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'July', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'August', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'September', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'October', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'November', y: random_y(), radius: 4, tip: 'The value is equal ' },
+                { label_x: 'December', y: random_y(), radius: 4, tip: 'The value is equal ' },
               ]);
             Line_chart0.render();
 
