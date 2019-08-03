@@ -61,9 +61,11 @@
               <?php if($loggedBool) echo $username; ?>
             </button>
             <div class="dropdown-menu dropdown-menu-right bg-dark">
-              <a href="index.php" class="btn btn-sm btn-dark w-100 text-left">Help</a>
-              <a href="index.php" class="btn btn-sm btn-dark w-100 text-left">Accout settings</a>
-              <a href="php/login/logout.php" class="btn btn-sm btn-dark w-100 text-left">Sign out</a>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Help</a>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Accout settings</a>
+              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Your posts</a>
+              <a href="add_post.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Add post</a>
+              <a href="php/login/logout.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Sign out</a>
             </div>
           </li>
           <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">

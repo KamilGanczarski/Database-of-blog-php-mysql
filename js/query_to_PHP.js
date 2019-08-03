@@ -48,3 +48,9 @@ function queryToPHP(item, behaviour) {
     window.location.href = url + query;
   }
 }
+
+function are_you_sure(item, behaviour) {
+  $('.sure_button')[0].addEventListener('click', () => {
+    queryToPHP(item, behaviour);
+  });
+}

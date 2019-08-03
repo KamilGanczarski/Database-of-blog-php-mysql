@@ -1,7 +1,7 @@
 <?php
 
-require_once 'php/fetch_data/fetch.php';
 require_once 'php/fetch_data/connection.php';
+require_once 'php/fetch_data/fetch.php';
 
 class Get_posts extends Fetch {
   private $loggedBool = '';
@@ -73,7 +73,8 @@ class Get_posts extends Fetch {
     foreach($this->content as $value) {
       $this->result .=
       '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
-        '<button class="close text-light" aria-label="Close" onclick="queryToPHP(' . $value['id'] . ', \'remove\')">
+        '<button class="close text-light" onclick="are_you_sure(' . $value['id'] . ', \'remove\')"
+          aria-label="Close" data-toggle="modal" data-target="#sureModal">
           <span aria-hidden="true">&times;</span>
         </button>' .
         '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left

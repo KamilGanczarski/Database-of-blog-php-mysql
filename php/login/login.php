@@ -1,7 +1,7 @@
 <?php
 
-require_once '../fetch_data/fetch.php';
 require_once '../fetch_data/connection.php';
+require_once '../fetch_data/fetch.php';
 
 class Login extends Fetch {
   public $userId = 0;
@@ -23,6 +23,8 @@ class Login extends Fetch {
   }
 
   public function checkUserLogin() {
+    session_start();
+    session_unset();
     session_start();
     $this->username = $_POST['username'];
     $this->password = $_POST['password'];

@@ -67,6 +67,7 @@
               <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Help</a>
               <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Accout settings</a>
               <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Your posts</a>
+              <a href="add_post.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Add post</a>
               <a href="php/login/logout.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Sign out</a>
             </div>
           </li>
@@ -166,6 +167,33 @@
       </div>
     </div>
   </main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="sureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+      <div class="modal-content border border-dark">
+        <div class="modal-header bg-gray border-dark">
+          <h5 class="modal-title text-info">Are you sure ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-white">&times;</span>
+          </button>
+        </div>
+
+        <div class="py-4 modal-body text-light bg-gray">
+          Are you sure you want to remove this posts ?
+        </div>
+
+        <div class="modal-footer bg-gray border-dark">
+          <button type="button" class="btn btn-info" data-dismiss="modal">
+            No stay
+          </button>
+          <button type="button" class="btn btn-danger sure_button" data-dismiss="modal">
+            Yes remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
