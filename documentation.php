@@ -16,16 +16,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <meta charset='UTF-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-  <title>Document</title>
-  <link rel='stylesheet' href='style/style.css'>
-  <meta name='theme-color' content='#000'/>
-  <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
-  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
+<?php require_once 'php/parts_of_a_website/head.php'; ?>
 </head>
 <body>
   <header>
@@ -112,8 +103,9 @@
       <div class='col-sm-12 col-lg-8 p-0 mt-3 scrollspy-example' data-spy="scroll" data-target="#nav-list" data-offset="0">
         <p class='h4 px-3 text-info' id="list-item-1">What’s included</p>
         <p class='px-3 text-light'>
-          You’ll find the following directories and files, grouping common resources
-          and providing both compiled and minified distribution files, as well as raw source files.
+          You’ll find the following directories and files,
+          grouping common resources and providing both compiled and minified
+          distribution files, as well as raw source files.
         </p>
         <pre class='px-5 border rounded border-dark bg-navy-blue text-light'>
 
@@ -151,14 +143,14 @@ source/
 
         <p class='h4 px-3 text-info' id="list-item-2">Page views</p>
         <p class='px-3 text-light'>
-          Page views on last week
+          Page views in last week
         </p>
         <div class='px-4 py-4 mb-3 border rounded border-dark bg-navy-blue text-light'>
           <script src='js/Statistic_view.js'></script>
           <canvas id='line_chart0' width="1000" height="500" class='w-100'></canvas>
           <script>
             function random_y() {
-              return Math.ceil(Math.random()*9)*15;
+              return Math.ceil(Math.random()*12)*10;
             }
 
             let Line_chart0 = new Statistic_view(
@@ -177,9 +169,9 @@ source/
                 { label_x: 'October', y: random_y(), radius: 4, tip: 'The value is equal ' },
                 { label_x: 'November', y: random_y(), radius: 4, tip: 'The value is equal ' },
                 { label_x: 'December', y: random_y(), radius: 4, tip: 'The value is equal ' },
-              ]);
+              ]
+            );
             Line_chart0.render();
-
           </script>
         </div>
 

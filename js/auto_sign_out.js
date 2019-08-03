@@ -1,22 +1,32 @@
-let idleTimeout = 180; //seconds
-let idleSecondsCounter = 0;
+class Auto_sign_out {
+  constructor() {
+    this.idle_timeout = 180;
+    this.idle_time_counter = 0;
+    this.document_events();
+  }
 
-document.onclick = function() {
-  idleSecondsCounter = 0;
-};
-document.onmousemove = function() {
-  idleSecondsCounter = 0;
-};
-document.onkeypress = function() {
-  idleSecondsCounter = 0;
-};
+  document_events() {
+    document.onclick = (e) => {
+      this.idle_time_counter = 0;
+    };
+    document.onmousemove = (e) => {
+      this.idle_time_counter = 0;
+    };
+    document.onkeypress = (e) => {
+      this.idle_time_counter = 0;
+    };
+  }
 
-window.setInterval(checkIdleTime, 1000);
-
-function checkIdleTime() {
-  idleSecondsCounter++;
-  if(idleSecondsCounter >= idleTimeout) {
-    //change location to logout.php
-    document.location.href = "php/login/logout.php";
+  check_idle_time() {
+    setInterval(() => {
+      this.idle_time_counter++;
+      if(this.idle_time_counter >= this.idle_timeout) {
+        //change location to logout.php
+        document.location.href = "php/login/logout.php";
+      }
+    }, 1000);
   }
 }
+
+let Sign_out_obj = new Auto_sign_out();
+Sign_out_obj.check_idle_time();

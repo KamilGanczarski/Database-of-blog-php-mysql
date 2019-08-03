@@ -31,13 +31,10 @@ class Statistic_view {
     this.distance.x = (this.canvas.width * 0.89) / (this.data.length - 1);
     this.limits.min = this.get_limits_y_value('min');
     this.limits.max = this.get_limits_y_value('max');
-    this.limits.max = this.limits.max.y / 10 + 1;
-    this.limits.min = this.limits.min.y / 10 - 1;
-
-    // this.limits.min = this.limits.min.y / 10;
-    console.log(this.limits.min);
-    // this.limits.min = Math.floor(this.limits.min / 10) * 10;
-    // this.limits.min -= 1;
+    this.limits.max = Math.ceil(this.limits.max.y / 10) * 10;
+    this.limits.min = Math.floor(this.limits.min.y / 10) * 10;
+    this.limits.max = this.limits.max / 10 + 1;
+    this.limits.min = this.limits.min / 10 - 1;
 
     this.limits.scope = this.limits.max - this.limits.min;
     if(this.limits.scope < 0) {

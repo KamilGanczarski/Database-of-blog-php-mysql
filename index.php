@@ -19,16 +19,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <meta charset='UTF-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-  <title>Document</title>
-  <link rel='stylesheet' href='style/style.css'>
-  <meta name="theme-color" content="#000"/>
-  <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
-  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'>
+<?php require_once 'php/parts_of_a_website/head.php'; ?>
 </head>
 <body>
   <header>
@@ -114,7 +105,7 @@
               </a>
             </div>
 
-            <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample">
               <a onclick='queryToPHP("All", "all")' class='px-4 py-3 btn btn-sm text-info'>All</a><br>
             </div>
           </div>
@@ -125,7 +116,7 @@
               </a>
             </div>
 
-            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="collapse show" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <a onclick='queryToPHP("JavaScript", "filter")' class='px-4 pt-3 btn btn-sm text-info'>JavaScript</a><br>
               <a onclick='queryToPHP("Java", "filter")' class='px-4 btn btn-sm text-info'>Java</a><br>
               <a onclick='queryToPHP("PHP", "filter")' class='px-4 btn btn-sm text-info'>PHP</a><br>
@@ -178,9 +169,7 @@
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    if($loggedBool) {
-      echo '<script src="js/auto_sign_out.js"></script>';
-    }
+    echo ($loggedBool) ? '<script src="js/auto_sign_out.js"></script>' : '';
   ?>
   <script src="js/query_to_PHP.js"></script>
 </body>
