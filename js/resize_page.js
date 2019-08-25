@@ -1,12 +1,12 @@
-window.onload = () => {
-    $("body")[0].onresize = resizeHeight();
-    resizeHeight();
-};
+let height_page;
+let footer;
+window.onresize = resize_height;
+resize_height();
 
-function resizeHeight() {
-    let heightPage = window.innerHeight;
-    let footer = $("footer")[0];
-    heightPage -= $("header")[0].clientHeight;
-    heightPage -= footer.clientHeight;
-    $("main")[0].style.minHeight = heightPage+'px';
+function resize_height() {
+    height_page = window.innerHeight;
+    footer = $("footer")[0];
+    height_page -= $("header")[0].clientHeight;
+    height_page -= footer.clientHeight;
+    $("main")[0].style.minHeight = height_page+'px';
 }

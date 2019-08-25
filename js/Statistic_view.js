@@ -8,6 +8,9 @@ class Statistic_view {
     this.offset;
     this.offset_x;
     this.offset_y;
+    // Scale to correct mouse position 
+    // if canvas size is different from original size
+    this.scale;
     this.limits = {
       min: 0, // Min value of vertical label
       max: 0, // Max value of vertical label
@@ -49,7 +52,7 @@ class Statistic_view {
 
     this.reOffset();
     window.onscroll = (e) => { this.reOffset(); }
-    window.onresize = (e) => { this.reOffset(); }
+    window.addEventListener('resize', () => { this.reOffset(); });
     this.canvas.addEventListener('mousemove', e => {
       this.handle_mouse_move(e);
     });
@@ -169,8 +172,9 @@ class Statistic_view {
     for(this.i = 0; this.i < this.data.length; this.i++) {
       let d = this.data[this.i];
       d.x = this.distance.x * this.i + 30;
-      let dx = this.mouse_x - d.x - 30;
-      let dy = this.mouse_y - this.get_y(d.y);
+      this.scale = 1000 / this.canvas.offsetWidth;
+      let dx = this.mouse_x * this.scale - d.x - 30;
+      let dy = this.mouse_y * this.scale - this.get_y(d.y);
       if(dx * dx + dy * dy < d.radius * d.radius * 36) {
         this.ctx.fillStyle = "#000000b0";
         if(this.i > this.data.length / 2) {

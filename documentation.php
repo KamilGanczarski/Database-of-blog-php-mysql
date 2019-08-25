@@ -1,12 +1,12 @@
 <?php
   session_start();
   $username = 'user';
-  $userId = 0;
-  $loggedBool = false;
+  $user_id = 0;
+  $logged_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $userId = $_SESSION['userId'];
-    $loggedBool = true;
+    $user_id = $_SESSION['userId'];
+    $logged_bool = true;
   }
 
   if(isset($_SESSION['msg'])) {
@@ -41,7 +41,7 @@
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
               href="index.php">News</a>
           </li>
-          <?php if($loggedBool) echo '<li class="nav-item active">
+          <?php if($logged_bool) echo '<li class="nav-item active">
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
               href="add_post.php">Add post</a>
           </li>'; ?>
@@ -53,12 +53,16 @@
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
               href="index.php">About</a>
           </li>
+          <li class="nav-item active">
+            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
+              href="index.php">Help</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end">
-          <li class="nav-item active d-none <?php if($loggedBool) echo 'd-lg-block'; ?>">
+          <li class="nav-item active d-none <?php if($logged_bool) echo 'd-lg-block'; ?>">
             <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
               class="px-3 nav-link btn text-left dropdown-toggle">
-              <?php if($loggedBool) echo $username; ?>
+              <?php if($logged_bool) echo $username; ?>
             </button>
             <div class="dropdown-menu dropdown-menu-right bg-dark">
               <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Help</a>
@@ -68,22 +72,18 @@
               <a href="php/login/logout.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Sign out</a>
             </div>
           </li>
-          <li class="nav-item active d-none <?php if(!$loggedBool) echo 'd-lg-block'; ?>">
+          <li class="nav-item active d-none <?php if(!$logged_bool) echo 'd-lg-block'; ?>">
             <a href="login.php" class="px-3 btn bg-transparent text-left text-light">sign in</a>
           </li>
-          <li class="nav-item active d-lg-none">
-            <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Help</a>
-          </li>
-          <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
+          <li class="nav-item active <?php if($logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
               href="index.php">Accout settings</a>
           </li>
-          <li class="nav-item active <?php if(!$loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
+          <li class="nav-item active <?php if(!$logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
               href="login.php">Sign in</a>
           </li>
-          <li class="nav-item active <?php if($loggedBool) echo 'd-lg-none'; else echo 'd-none' ?>">
+          <li class="nav-item active <?php if($logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
             <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
               href="php/login/logout.php">Sign out</a>
           </li>
@@ -229,7 +229,7 @@ source/
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    if($loggedBool) {
+    if($logged_bool) {
       echo '<script src="js/auto_sign_out.js"></script>';
     }
   ?>

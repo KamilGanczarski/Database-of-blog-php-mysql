@@ -1,14 +1,14 @@
 <?php
 
 session_start();
-$postFilter = $_GET['postFilter'];
-$postFilterMsg = $_GET['postFilterMsg'];
-$searchValue = $_GET['searchValue'];
+$post_filter = $_GET['postFilter'];
+$post_filter_msg = $_GET['postFilterMsg'];
+$search_value = $_GET['searchValue'];
 
-if($postFilter == 'form') {
-  $postFilter = "SELECT * FROM Blog_content WHERE content LIKE \"%$searchValue%\"";
+if($post_filter == 'form') {
+  $post_filter = "SELECT * FROM Blog_content WHERE content LIKE \"%$search_value%\"";
 }
-$_SESSION['postFilter'] = $postFilter;
-$_SESSION['postFilterMsg'] = $postFilterMsg;
-$_SESSION['searchValue'] = $searchValue;
+$_SESSION['postFilter'] = $post_filter;
+$_SESSION['postFilterMsg'] = $post_filter_msg;
+$_SESSION['searchValue'] = $search_value;
 header('Location: ../../index.php');

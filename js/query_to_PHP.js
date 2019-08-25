@@ -17,7 +17,7 @@ function queryToPHP(item, behaviour) {
     // Filter posts
     url = 'php/blog_configuration/sort_posts.php?';
     query = 'postFilter=' + 'SELECT * FROM Blog_content WHERE id = \'' + item + '\'&';
-    query += 'postFilterMsg=';
+    query += 'postFilterMsg=Return to all';
     window.location.href = url + query;
   } else if(behaviour === 'sort') {
     // Sort posts

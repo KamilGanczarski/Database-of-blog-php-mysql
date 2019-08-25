@@ -7,22 +7,21 @@ class Login extends Fetch {
   public $userId = 0;
   public $username = '';
   private $password = '';
-  private $loggedBool = '';
   // Object
   private $User;
 
-  private function correctLogin() {
+  private function correct_login() {
     $_SESSION['userId'] = $this->User[0]['id'];
     $_SESSION['login'] = $this->User[0]['username'];
     header('Location: ../../index.php');
   }
 
-  private function incorrectLogin() {
+  private function incorrect_login() {
     $_SESSION['msg'] = 'Incorrect username or password.';
     header('Location: ../../login.php');
   }
 
-  public function checkUserLogin() {
+  public function check_user_login() {
     session_start();
     session_unset();
     session_start();
@@ -33,15 +32,15 @@ class Login extends Fetch {
     $this->User = $this->fetch($this->User);
     if(is_array($this->User)) {
       if($this->User[0]['password'] === $this->password) {
-        $this->correctLogin();
+        $this->correct_login();
       } else {
-        $this->incorrectLogin();
+        $this->incorrect_login();
       }
     } else {
-      $this->incorrectLogin();
+      $this->incorrect_login();
     }
   }
 }
 
 $LoginObj = new Login;
-$LoginObj->checkUserLogin();
+$LoginObj->check_user_login();

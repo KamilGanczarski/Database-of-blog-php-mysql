@@ -1,10 +1,13 @@
 <?php
   session_start();
   $msg = '';
-  $msgBool = false;
+  $msg_bool = false;
   if(isset($_SESSION['msg'])) {
-    $msgBool = true;
+    $msg_bool = true;
     $msg = $_SESSION['msg'];
+  }
+  if(isset($_SESSION['login'])) {
+    header('Location: index.php');
   }
 ?>
 <!DOCTYPE html>
@@ -43,6 +46,10 @@
             <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
               href="index.php">About</a>
           </li>
+          <li class="nav-item active">
+            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
+              href="index.php">Help</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end">
           <li class="nav-item active d-none d-lg-block">
@@ -56,9 +63,9 @@
 
   <main class='bg-gray'>
     <div class='container-fluid row px-0 py-5 mx-auto text-light'>
-      <div class="mx-auto <?php if($msgBool) echo 'd-block'; else echo 'd-none'; ?>">
+      <div class="mx-auto <?php if($msg_bool) echo 'd-block'; else echo 'd-none'; ?>">
         <div class="loginWindowW alert alert-danger alert-dismissible fade show" role="alert">
-          <?php if($msgBool) echo $msg; ?>
+          <?php if($msg_bool) echo $msg; ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

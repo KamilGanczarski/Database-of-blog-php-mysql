@@ -2,11 +2,11 @@
 
 class Fetch {
   private $query;
-  private $queryType;
+  private $query_type;
   // All keys of object
-  private $tableKeys = [];
+  private $table_keys = [];
   // Content
-  private $tableData = [];
+  private $table_data = [];
   private $result = [];
 
   public function __construct() {
@@ -14,20 +14,20 @@ class Fetch {
     $this->connection = $connection;
   }
 
-  private function createConnection($query) {
+  private function create_connection($query) {
     $this->query = $query;
     mysqli_connect_errno()==0 or die('Błąd połączenia z MySQL: "'. mysqli_connect_error(). '".');
     mysqli_query($this->connection, 'SET NAMES utf8');
     if(!($this->result = mysqli_query($this->connection, $this->query))) {
-      $this->tableKeys = array('Typ błędu', 'Opis błędu');
-      $this->tableData = array(array(
+      $this->table_keys = array('Typ błędu', 'Opis błędu');
+      $this->table_data = array(array(
         'Problem z zapytaniem mysql',
         'BŁĄD: problem z zapytaniem "'. $this->query. '".'
       ));
     } else {
-      $this->queryType = explode(' ', trim($this->query));
-      $this->queryType = $this->queryType[0];
-      if($this->queryType === 'SELECT') $this->fetchData();
+      $this->query_type = explode(' ', trim($this->query));
+      $this->query_type = $this->query_type[0];
+      if($this->query_type === 'SELECT') $this->fetchData();
     }
     // mysqli_close($this->connection);
   }
@@ -37,30 +37,30 @@ class Fetch {
    */
   private function fetchData() {
     if($record = mysqli_fetch_object($this->result)) {
-      $this->tableKeys = (array) $record;
-      $this->tableKeys = array_keys($this->tableKeys);
-      $this->tableData = array(array_values((array) $record));
+      $this->table_keys = (array) $record;
+      $this->table_keys = array_keys($this->table_keys);
+      $this->table_data = array(array_values((array) $record));
     }
 
     if($record = mysqli_fetch_all($this->result)) {
-      $this->tableData = array_merge($this->tableData, $record);
+      $this->table_data = array_merge($this->table_data, $record);
     }
 
     if($this->result->num_rows > 1) {
       $this->result = [];
-      foreach($this->tableData as $object) {
-        array_push($this->result, array_combine($this->tableKeys, $object));
+      foreach($this->table_data as $object) {
+        array_push($this->result, array_combine($this->table_keys, $object));
       }
     } else if($this->result->num_rows == 1) {
       $this->result = [];
-      array_push($this->result, array_combine($this->tableKeys, $this->tableData[0]));
+      array_push($this->result, array_combine($this->table_keys, $this->table_data[0]));
     } else {
       $this->result = 0;
     }
   }
 
   public function fetch($query) {
-    $this->createConnection($query);
+    $this->create_connection($query);
     return $this->result;
   }
 }

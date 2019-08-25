@@ -4,7 +4,7 @@ require_once 'php/fetch_data/connection.php';
 require_once 'php/fetch_data/fetch.php';
 
 class Get_posts extends Fetch {
-  private $loggedBool = '';
+  private $logged_bool = '';
   private $content = '';
   private $type = '';
   private $result = '';
@@ -20,7 +20,7 @@ class Get_posts extends Fetch {
      */
     if($this->content == 0) {
       $this->noSuchPosts();
-    } else if($this->loggedBool == true) {
+    } else if($this->logged_bool == true) {
       $this->editable_blog();
     } else {
       $this->simple_blog();
@@ -45,7 +45,7 @@ class Get_posts extends Fetch {
    * Return simple blog without buttons to remove posts
    */
   private function simple_blog() {
-    $this->result = '<button class="btn btn-dark mx-2 mb-2">' .
+    $this->result = '<button class="btn btn-sm btn-dark mx-2 mb-2">' .
      '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
     </button>';
     foreach($this->content as $value) {
@@ -67,7 +67,7 @@ class Get_posts extends Fetch {
    * Return editable blog with buttons to remove posts
    */
   private function editable_blog() {
-    $this->result = '<button class="btn btn-dark mx-2 mb-2">' .
+    $this->result = '<button class="btn btn-sm btn-dark mx-2 mb-2">' .
      '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
     </button>';
     foreach($this->content as $value) {
@@ -101,15 +101,14 @@ class Get_posts extends Fetch {
     return $this->result;
   }
 
-  public function return_html($loggedBool, $type) {
-    $this->loggedBool = $loggedBool;
+  public function return_html($logged_bool, $type) {
+    $this->logged_bool = $logged_bool;
     $this->type = $type;
     if($this->type == 'all') {
       $this->result = $this->get_all_posts();
     } else if($this->type == 'title') {
       $this->result = $this->get_title_of_posts();
     }
-
     return $this->result;
   }
 }
