@@ -3,6 +3,7 @@
 class Fetch {
   private $query;
   private $query_type;
+  private $conn;
   // All keys of object
   private $table_keys = [];
   // Content
@@ -10,15 +11,15 @@ class Fetch {
   private $result = [];
 
   public function __construct() {
-    global $connection;
-    $this->connection = $connection;
+    global $conn;
+    $this->conn = $conn;
   }
 
   private function create_connection($query) {
     $this->query = $query;
     mysqli_connect_errno()==0 or die('Błąd połączenia z MySQL: "'. mysqli_connect_error(). '".');
-    mysqli_query($this->connection, 'SET NAMES utf8');
-    if(!($this->result = mysqli_query($this->connection, $this->query))) {
+    mysqli_query($this->conn, 'SET NAMES utf8');
+    if(!($this->result = mysqli_query($this->conn, $this->query))) {
       $this->table_keys = array('Typ błędu', 'Opis błędu');
       $this->table_data = array(array(
         'Problem z zapytaniem mysql',
@@ -29,7 +30,7 @@ class Fetch {
       $this->query_type = $this->query_type[0];
       if($this->query_type === 'SELECT') $this->fetchData();
     }
-    // mysqli_close($this->connection);
+    // mysqli_close($this->conn);
   }
 
   /*
@@ -53,7 +54,11 @@ class Fetch {
       }
     } else if($this->result->num_rows == 1) {
       $this->result = [];
-      array_push($this->result, array_combine($this->table_keys, $this->table_data[0]));
+      array_push(
+        $this->result,
+        array_combine($this->table_keys, 
+        $this->table_data[0])
+      );
     } else {
       $this->result = 0;
     }

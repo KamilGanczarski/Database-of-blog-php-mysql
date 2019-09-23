@@ -16,94 +16,23 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-<?php require_once 'php/parts_of_a_website/head.php'; ?>
+  <?php require_once 'php/parts_of_a_website/head.php'; ?>
 </head>
 <body>
-  <header>
-    <nav class="w-100 px-3 navbar navbar-expand-lg navbar-dark bg-navy-blue">
-      <a href="index.php" class="navbar-brand btn bg-transparent text-info">Home</a>
-      <button class="navbar-toggler btn bg-transparent" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto justify-content-end">
-          <li class="nav-item active my-auto">
-            <form action='php/blog_configuration/sort_posts.php' method='get' class="form-inline py-3 py-lg-0">
-              <input type="search" name='searchValue' placeholder="Search" value='<?php if(isset($_SESSION['searchValue'])) echo $_SESSION['searchValue'] ?>'
-                class="form-control form-control-sm w-100 mr-sm-2 bg-dark border-0 text-light formSearchInput">
-              <div class="inputWidth"></div>
-              <input type="text" name="postFilter" value='form' class='postFilter d-none'>
-              <input type="submit" class="d-none">
-            </form>
-          </li>
-          <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">News</a>
-          </li>
-          <?php if($logged_bool) echo '<li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="add_post.php">Add post</a>
-          </li>'; ?>
-          <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="documentation.php">Documentation</a>
-          </li>
-          <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">About</a>
-          </li>
-          <li class="nav-item active">
-            <a class="w-100 px-3 py-3 py-lg-2 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Help</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto justify-content-end">
-          <li class="nav-item active d-none <?php if($logged_bool) echo 'd-lg-block'; ?>">
-            <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-              class="px-3 nav-link btn text-left dropdown-toggle">
-              <?php if($logged_bool) echo $username; ?>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right bg-dark">
-              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Help</a>
-              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Accout settings</a>
-              <a href="index.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Your posts</a>
-              <a href="add_post.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Add post</a>
-              <a href="php/login/logout.php" class="d-block btn btn-sm btn-dark px-4 w-100 text-left">Sign out</a>
-            </div>
-          </li>
-          <li class="nav-item active d-none <?php if(!$logged_bool) echo 'd-lg-block'; ?>">
-            <a href="login.php" class="px-3 btn bg-transparent text-left text-light">sign in</a>
-          </li>
-          <li class="nav-item active <?php if($logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
-              href="index.php">Accout settings</a>
-          </li>
-          <li class="nav-item active <?php if(!$logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
-              href="login.php">Sign in</a>
-          </li>
-          <li class="nav-item active <?php if($logged_bool) echo 'd-lg-none'; else echo 'd-none' ?>">
-            <a class="w-100 px-3 py-3 btn btn-sm bg-transparent text-left text-light"
-              href="php/login/logout.php">Sign out</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <?php require_once 'php/parts_of_a_website/nav.php'; ?>
 
   <main>
     <div class='w-100 mx-0 row py-3 justify-content-around bg-gray'>
       <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
-        <nav class="list-group" id="nav-list">
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-1">What’s included</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-2">Page views</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" href="#list-item-3">Diagrams</a>
+        <nav class='list-group' id='nav-list'>
+          <a class='list-group-item list-group-item-secondary list-group-item-action' href='#list-item-1'>What’s included</a>
+          <a class='list-group-item list-group-item-secondary list-group-item-action' href='#list-item-2'>Page views</a>
+          <a class='list-group-item list-group-item-secondary list-group-item-action' href='#list-item-3'>Diagrams</a>
         </nav>
       </div>
 
-      <div class='col-sm-12 col-lg-8 p-0 mt-3 scrollspy-example' data-spy="scroll" data-target="#nav-list" data-offset="0">
-        <p class='h4 px-3 text-info' id="list-item-1">What’s included</p>
+      <div data-spy='scroll' data-target='#nav-list' data-offset='0' class='col-sm-12 col-lg-8 p-0 mt-3 scrollspy-example'>
+        <p class='h4 px-3 text-info' id='list-item-1'>What’s included</p>
         <p class='px-3 text-light'>
           You’ll find the following directories and files,
           grouping common resources and providing both compiled and minified
@@ -143,13 +72,13 @@ source/
   └── login.php
         </pre>
 
-        <p class='h4 px-3 text-info' id="list-item-2">Page views</p>
+        <p class='h4 px-3 text-info' id='list-item-2'>Page views</p>
         <p class='px-3 text-light'>
           Page views in last week
         </p>
         <div class='px-4 py-4 mb-3 border rounded border-dark bg-navy-blue text-light'>
           <script src='js/Statistic_view.js'></script>
-          <canvas id='line_chart0' width="1000" height="500" class='w-100'></canvas>
+          <canvas id='line_chart0' width='1000' height='500' class='w-100'></canvas>
           <script>
             function random_y() {
               return Math.ceil(Math.random()*12)*10;
@@ -177,10 +106,10 @@ source/
           </script>
         </div>
 
-        <p class='h4 px-3 text-info' id="list-item-3">Diagrams</p>
+        <p class='h4 px-3 text-info' id='list-item-3'>Diagrams</p>
         <p class='px-3 text-light'></p>
         <div class='row m-0 px-5 py-5 border rounded border-dark bg-navy-blue text-light'>
-          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='horizontal_bar_chart0'></div>
+          <div class='col-sm-10 col-md-8 col-lg-5 px-0 mx-auto' id='horizontal_bar_chart0'></div>
           <script>
             let Horizontal_bar_chart0 = new Statistic_view(
               type = 'horizontal_bar_chart',
@@ -201,7 +130,7 @@ source/
             Horizontal_bar_chart0.render();
           </script>
 
-          <div class="col-sm-10 col-md-8 col-lg-5 px-0 mx-auto" id='horizontal_bar_chart1'></div>
+          <div class='col-sm-10 col-md-8 col-lg-5 px-0 mx-auto' id='horizontal_bar_chart1'></div>
           <script>
             let Horizontal_bar_chart1 = new Statistic_view(
               type = 'horizontal_bar_chart',
@@ -229,10 +158,8 @@ source/
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    if($logged_bool) {
-      echo '<script src="js/auto_sign_out.js"></script>';
-    }
+    echo ($logged_bool) ? '<script src="js/auto_sign_out.js"></script>' : '';
   ?>
-  <script src="js/query_to_PHP.js"></script>
+  <script src='js/query_to_PHP.js'></script>
 </body>
 </html>

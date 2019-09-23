@@ -20,7 +20,7 @@ class Add_post extends Fetch {
     $this->post_id = $this->post_id["id"] + 1;
     $this->post_user = $_SESSION["login"];
     $this->post_title = nl2br($this->post_title);
-    $post_content = nl2br($this->post_content);
+    $this->post_content = nl2br($this->post_content);
     $this->query_to_sql = "INSERT INTO Blog_content(id, title, username, create_date, type, content) VALUES ";
     $this->query_to_sql .= "($this->post_id, '$this->post_title', '$this->post_user', CURRENT_TIMESTAMP, ";
     $this->query_to_sql .= "'$this->post_type', '$this->post_content')";
@@ -33,7 +33,7 @@ class Add_post extends Fetch {
    * Return to create post page with error message
    */
   private function denial_create_post() {
-    $_SESSION['msg'] = 'Incorrent post title or content';
+    $_SESSION['msg'] = 'Incorrent post title or content or you did\'t set a type';
     header('Location: ../../add_post.php');
   }
 
@@ -43,7 +43,7 @@ class Add_post extends Fetch {
     $this->post_type = $_POST['post_type'];
     $this->post_content = $_POST['post_content'];
     if(strlen(trim($this->post_title)) > 0 &&
-    strlen(trim($this->post_content)) > 0 && $this->post_type != 'Type') {
+      strlen(trim($this->post_content)) > 0 && $this->post_type != 'Type') {
       $this->create_post();
     } else {
       $this->denial_create_post();

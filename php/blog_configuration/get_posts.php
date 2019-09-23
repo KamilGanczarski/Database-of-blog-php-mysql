@@ -19,7 +19,7 @@ class Get_posts extends Fetch {
      * Check if the user is logged in
      */
     if($this->content == 0) {
-      $this->noSuchPosts();
+      $this->no_such_posts();
     } else if($this->logged_bool == true) {
       $this->editable_blog();
     } else {
@@ -35,7 +35,7 @@ class Get_posts extends Fetch {
     $this->content = $this->fetch('SELECT id, title FROM Blog_content');
     $this->result = '';
     foreach($this->content as $value) {
-      $this->result .= '<a onclick="queryToPHP(' . $value['id'] . ', \'id\')" ' .
+      $this->result .= '<a onclick="query_to_PHP(' . $value['id'] . ', \'id\')" ' .
       'class="px-4 btn btn-sm text-info">' . $value['title'] . '</a><br>';
     }
     return $this->result;
@@ -92,7 +92,7 @@ class Get_posts extends Fetch {
   /*
    * Return information about no such posts
    */
-  private function noSuchPosts() {
+  private function no_such_posts() {
     $this->result =
     '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
       '<a href="index.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left

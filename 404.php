@@ -1,18 +1,18 @@
 <?php
   session_start();
   $username = 'user';
-  $userId = 0;
-  $loggedBool = false;
+  $user_id = 0;
+  $logged_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $userId = $_SESSION['userId'];
-    $loggedBool = true;
+    $user_id = $_SESSION['userId'];
+    $logged_bool = true;
   }
 ?>
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-<?php require_once 'php/parts_of_a_website/head.php'; ?>
+  <?php require_once 'php/parts_of_a_website/head.php'; ?>
 </head>
 <body>
 
@@ -28,14 +28,14 @@
   </header>
 
   <main class='container-fluid row mx-auto text-light bg-navy-blue'>
-    <div class="mx-auto my-auto rounded-circle">
-      <div class="lds-dual-ring"></div>
+    <div class='mx-auto my-auto rounded-circle'>
+      <div class='lds-dual-ring'></div>
     </div>
   </main>
 
   <?php
     require_once 'php/parts_of_a_website/footer.php';
-    if($loggedBool) {
+    if($logged_bool) {
       echo '<script src="js/auto_sign_out.js"></script>';
     }
   ?>

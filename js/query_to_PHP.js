@@ -1,4 +1,4 @@
-function queryToPHP(item, behaviour) {
+function query_to_PHP(item, behaviour) {
   let url = '';
   let query = '';
 
@@ -51,6 +51,6 @@ function queryToPHP(item, behaviour) {
 
 function are_you_sure(item, behaviour) {
   $('.sure_button')[0].addEventListener('click', () => {
-    queryToPHP(item, behaviour);
+    query_to_PHP(item, behaviour);
   });
 }
