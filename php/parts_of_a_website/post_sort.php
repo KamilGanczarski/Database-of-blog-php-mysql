@@ -19,13 +19,11 @@
             </div>
 
             <div aria-labelledby='headingTwo' data-parent='#accordionExample' class='collapse show' id='collapseTwo'>
-              <a onclick='query_to_PHP("JavaScript", "filter")' class='px-4 pt-3 btn btn-sm text-info'>JavaScript</a><br>
-              <a onclick='query_to_PHP("Java", "filter")' class='px-4 btn btn-sm text-info'>Java</a><br>
-              <a onclick='query_to_PHP("PHP", "filter")' class='px-4 btn btn-sm text-info'>PHP</a><br>
-              <a onclick='query_to_PHP("Python", "filter")' class='px-4 btn btn-sm text-info'>Python</a><br>
-              <a onclick='query_to_PHP("C Language", "filter")' class='px-4 btn btn-sm text-info'>C Language</a><br>
-              <a onclick='query_to_PHP("Ruby", "filter")' class='px-4 btn btn-sm text-info'>Ruby</a><br>
-              <a onclick='query_to_PHP("Swift", "filter")' class='px-4 pb-3 btn btn-sm text-info'>Swift</a><br>
+              <?php
+                require_once 'php/blog_configuration/get_posts.php';
+                $Get_posts = new Get_posts();
+                echo $Get_posts->return('false', 'types');
+              ?>
             </div>
           </div>
           <div class='card bg-transparent border rounded-bottom border-dark'>

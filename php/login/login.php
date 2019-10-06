@@ -28,10 +28,10 @@ class Login extends Fetch {
     $this->username = $_POST['username'];
     $this->password = $_POST['password'];
 
-    $this->User = "SELECT * FROM Users WHERE username LIKE \"$this->username\"";
+    $this->User = "SELECT * FROM User WHERE username LIKE \"$this->username\"";
     $this->User = $this->fetch($this->User);
     if(is_array($this->User)) {
-      if($this->User[0]['password'] === $this->password) {
+      if($this->User[0]['passwrd'] === $this->password) {
         $this->correct_login();
       } else {
         $this->incorrect_login();

@@ -6,16 +6,11 @@
   $msg = '';
   $msg_bool = false;
   if(isset($_SESSION['login'])) {
-    $username = $_SESSION['login'];
-    $user_id = $_SESSION['userId'];
-    $logged_bool = true;
+    header('Location: index.php');
   }
   if(isset($_SESSION['msg'])) {
     $msg_bool = true;
     $msg = $_SESSION['msg'];
-  }
-  if(isset($_SESSION['login'])) {
-    header('Location: index.php');
   }
 ?>
 <!DOCTYPE html>
@@ -28,9 +23,9 @@
 
   <main class='bg-gray'>
     <div class='container-fluid row px-0 py-5 mx-auto text-light'>
-      <div class="mx-auto <?php if($msg_bool) echo 'd-block'; else echo 'd-none'; ?>">
+      <div class="mx-auto <?php echo ($msg_bool) ? 'd-block' : 'd-none'; ?>">
         <div class='loginWindowW alert alert-danger alert-dismissible fade show' role='alert'>
-          <?php if($msg_bool) echo $msg; ?>
+          <?php echo ($msg_bool) ? $msg : ''; ?>
           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'>&times;</span>
           </button>

@@ -3,6 +3,8 @@
   $username = 'user';
   $user_id = 0;
   $logged_bool = false;
+  $msg = '';
+  $msg_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
     $user_id = $_SESSION['userId'];
@@ -10,6 +12,7 @@
   }
 
   if(isset($_SESSION['msg'])) {
+    $msg_bool = true;
     $msg = $_SESSION['msg'];
   }
 ?>

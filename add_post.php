@@ -1,20 +1,20 @@
 <?php
   session_start();
   $username = 'user';
-  $userId = 0;
+  $user_id = 0;
   $logged_bool = false;
   $msg = '';
-  $msg_bool = true;
+  $msg_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $userId = $_SESSION['userId'];
+    $user_id = $_SESSION['userId'];
     $logged_bool = true;
   } else {
     header('Location: index.php');
   }
 
   if(isset($_SESSION['msg'])) {
-    $msg_bool = false;
+    $msg_bool = true;
     $msg = $_SESSION['msg'];
   }
 ?>
@@ -27,9 +27,9 @@
   <?php require_once 'php/parts_of_a_website/nav.php'; ?>
 
   <main class='bg-gray'>
-    <div class="px-4 pt-4 mx-0 <?php if($msg_bool) echo 'd-none'; else echo 'd-block'; ?>">
+    <div class="px-4 pt-4 mx-0 <?php echo ($msg_bool) ? 'd-block' : 'd-none'; ?>">
       <div class='w-50 alert alert-danger alert-dismissible fade show text-left mx-auto my-0' role='alert'>
-        <?php if(!$msg_bool) echo $msg; ?>
+        <?php echo ($msg_bool) ? $msg : ''; ?>
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
           <span aria-hidden='true'>&times;</span>
         </button>
@@ -49,16 +49,12 @@
             </div>
             <div class='col-sm-3 p-0 mb-3'>
               <p class='p-1 m-0 text-muted'>Post type</p>
-              <select name='post_type' class='w-100 form-control form-control-sm form-control-dark'>
-                <option selected>Type</option>
-                <option value='JavaScript'>JavaScript</option>
-                <option value='Java'>Java</option>
-                <option value='PHP'>PHP</option>
-                <option value='Python'>Python</option>
-                <option value='C Language'>C Language</option>
-                <option value='Ruby'>Ruby</option>
-                <option value='Swift'>Swift</option>
-                <option value='Other'>Other</option>
+              <select name='typeof_id' class='w-100 form-control form-control-sm form-control-dark'>
+                <?php
+                  require_once 'php/blog_configuration/get_posts.php';
+                  $Get_posts = new Get_posts();
+                  echo $Get_posts->return('false', 'option_types');
+                ?>
               </select>
             </div>
           </div>

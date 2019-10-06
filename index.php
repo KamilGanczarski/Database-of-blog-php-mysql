@@ -1,10 +1,10 @@
 <?php
-  require_once 'php/blog_configuration/get_posts.php';
-
   session_start();
   $username = 'user';
   $user_id = 0;
   $logged_bool = false;
+  $msg = '';
+  $msg_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
     $user_id = $_SESSION['userId'];
@@ -12,6 +12,7 @@
   }
 
   if(isset($_SESSION['msg'])) {
+    $msg_bool = true;
     $msg = $_SESSION['msg'];
   }
 ?>
@@ -30,29 +31,29 @@
 
         <div class='py-2 text-left border rounded border-dark'>
           <?php
+            require_once 'php/blog_configuration/get_posts.php';
             $Get_posts = new Get_posts();
-            echo $Get_posts->return_html($logged_bool, 'title');
+            echo $Get_posts->return($logged_bool, 'title');
           ?>
         </div>
       </div>
 
       <div class='col-sm-12 col-lg-8 p-0 mt-3'>
-          <?php
-            if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
-              echo '<button onclick=\'query_to_PHP("All", "all")\' class="btn btn-sm btn-dark mx-2 mb-2">' .
-                $_SESSION['postFilterMsg'] .
-                '<span aria-hidden="true" class="pl-2">&times;</span>
-              </button>';
-            } else if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
-              echo '<button onclick=\'query_to_PHP("All", "all")\' class="btn btn-sm btn-dark mx-2 mb-2">' .
-                $_SESSION['postFilterMsg'] .
-                '<span aria-hidden="true" class="pl-2">&times;</span>
-              </button>';
-            }
-          ?>
         <?php
-          $Get_posts = new Get_posts();
-          echo $Get_posts->return_html($logged_bool, 'all');
+          if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
+            echo '<button onclick=\'query_to_PHP("All", "all")\' class="btn btn-sm btn-dark mx-2 mb-2">' .
+              $_SESSION['postFilterMsg'] .
+              '<span aria-hidden="true" class="pl-2">&times;</span>
+            </button>';
+          } else if(isset($_SESSION['postFilterMsg']) && $_SESSION['postFilterMsg'] !== '') {
+            echo '<button onclick=\'query_to_PHP("All", "all")\' class="btn btn-sm btn-dark mx-2 mb-2">' .
+              $_SESSION['postFilterMsg'] .
+              '<span aria-hidden="true" class="pl-2">&times;</span>
+            </button>';
+          }
+        ?>
+        <?php
+          echo $Get_posts->return($logged_bool, 'all');
         ?>
       </div>
     </div>

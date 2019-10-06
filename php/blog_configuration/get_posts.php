@@ -13,7 +13,13 @@ class Get_posts extends Fetch {
     if(isset($_SESSION['postFilter'])) {
       $this->content = $this->fetch($_SESSION['postFilter']);
     } else {
-      $this->content = $this->fetch('SELECT * FROM Blog_content');
+      $this->content = $this->fetch('
+        SELECT Post.id, Post.title, User.username, Post.create_date,
+          Type_of_blog.name AS type, Post.content
+          FROM Post
+          INNER JOIN User ON Post.username_id = User.id
+          INNER JOIN Type_of_blog ON Post.username_id = Type_of_blog.id;
+      ');
     }
     /*
      * Check if the user is logged in
@@ -32,11 +38,52 @@ class Get_posts extends Fetch {
    * Return list of titles of posts
    */
   private function get_title_of_posts() {
-    $this->content = $this->fetch('SELECT id, title FROM Blog_content');
+    $this->content = $this->fetch('SELECT id, title FROM Post');
     $this->result = '';
     foreach($this->content as $value) {
       $this->result .= '<a onclick="query_to_PHP(' . $value['id'] . ', \'id\')" ' .
       'class="px-4 btn btn-sm text-info">' . $value['title'] . '</a><br>';
+    }
+    return $this->result;
+  }
+
+  /*
+   * Return list of types of posts
+   */
+  private function get_types_of_posts() {
+    $this->content = $this->fetch('SELECT name FROM Type_of_blog');
+    $this->result = '';
+    $i = 0;
+    foreach($this->content as $value) {
+      $value = $value['name'];
+      $this->result .= '<a onclick="query_to_PHP(\'' . $value . '\', \'filter\')" ';
+    
+      if($i === 0) {
+        $this->result .= ' class="px-4 pt-3 btn btn-sm text-info">';
+      } else if($i === count($this->content) - 1) {
+        $this->result .= ' class="px-4 pb-3 btn btn-sm text-info">';
+      } else {
+        $this->result .= ' class="px-4 btn btn-sm text-info">';
+      }
+
+      $this->result .= $value . '</a><br>';
+      $i++;
+    }
+    return $this->result;
+  }
+
+    /*
+   * Return list of types of posts
+   */
+  private function get_types_of_posts_to_select() {
+    $this->content = $this->fetch('SELECT name FROM Type_of_blog');
+    $this->result = '';
+    $i = 0;
+    $this->result = '<option selected>Type</option>';
+    foreach($this->content as $value) {
+      $value = $value['name'];
+      $this->result .= '<option value=\'' . $i . '\'>' . $value . '</option>';
+      $i++;
     }
     return $this->result;
   }
@@ -101,13 +148,17 @@ class Get_posts extends Fetch {
     return $this->result;
   }
 
-  public function return_html($logged_bool, $type) {
+  public function return($logged_bool, $type) {
     $this->logged_bool = $logged_bool;
     $this->type = $type;
     if($this->type == 'all') {
       $this->result = $this->get_all_posts();
     } else if($this->type == 'title') {
       $this->result = $this->get_title_of_posts();
+    } else if($this->type == 'types') {
+      $this->result = $this->get_types_of_posts();
+    } else if($this->type == 'option_types') {
+      $this->result = $this->get_types_of_posts_to_select();
     }
     return $this->result;
   }
