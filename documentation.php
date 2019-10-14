@@ -45,10 +45,11 @@
 
 source/
   ├── create_table_in_phpmyadmin/
+  │     ├── Blog_system.sql
   │     └── index.sql
   ├── js/
   │     ├── auto_sign_out.js
-  │     ├── auto_sign_out.js
+  │     ├── query_to_PHP.js
   │     ├── resize_page.js
         └──  Statistic_view.js
   ├── php/
@@ -64,7 +65,10 @@ source/
   |     |   ├── login.php
   |     |   └── logout.php
   │     └── parts_of_a_website/
-  |         └── footer.php
+  |     |   ├── footer.php
+  |     |   ├── head.php
+  |     |   ├── nav.php
+  |         └── post_sort.php
   ├── style/
   │   └── style.css
   ├── 404.php

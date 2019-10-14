@@ -4,7 +4,6 @@ require_once '../fetch_data/connection.php';
 require_once '../fetch_data/fetch.php';
 
 class Add_post extends Fetch {
-  private $post_id = 0;
   private $post_title = '';
   private $post_user = '';
   private $post_type = '';
@@ -15,18 +14,15 @@ class Add_post extends Fetch {
    * Create new row in table 'Blog_content'
    */
   private function create_post() {
-    $this->post_id = $this->fetch('SELECT id FROM Post');
-    $this->post_id = end($this->post_id);
-    $this->post_id = $this->post_id["id"] + 1;
     $this->username_id = $_SESSION["userId"];
     $this->post_title = nl2br($this->post_title);
     $this->post_content = nl2br($this->post_content);
-    $this->query_to_sql = "INSERT INTO Post(id, title, username_id, create_date, typeof_id, content) VALUES ";
-    $this->query_to_sql .= "($this->post_id, '$this->post_title', '$this->username_id', CURRENT_TIMESTAMP, ";
+    $this->query_to_sql = "INSERT INTO Post(title, username_id, create_date, typeof_id, content) VALUES ";
+    $this->query_to_sql .= "('$this->post_title', '$this->username_id', CURRENT_TIMESTAMP, ";
     $this->query_to_sql .= "'$this->post_type', '$this->post_content')";
     $this->fetch("$this->query_to_sql");
     unset($_SESSION['msg']);
-    // header('Location: ../../index.php');
+    header('Location: ../../index.php');
   }
 
   /*
@@ -34,7 +30,7 @@ class Add_post extends Fetch {
    */
   private function denial_create_post() {
     $_SESSION['msg'] = 'Incorrent post title or content or you did\'t set a type';
-    // header('Location: ../../add_post.php');
+    header('Location: ../../add_post.php');
   }
 
   public function add_post_f() {

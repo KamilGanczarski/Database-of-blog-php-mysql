@@ -4,23 +4,22 @@ require_once 'php/fetch_data/connection.php';
 require_once 'php/fetch_data/fetch.php';
 
 class Get_posts extends Fetch {
-  private $logged_bool = '';
-  private $content = '';
+  private $logged_bool = false;
+  private $query = '';
+  private $content;
   private $type = '';
   private $result = '';
 
   private function get_all_posts() {
+    $this->query = 'SELECT Post.id, Post.title, User.username, Post.create_date,
+      Type_of_blog.name AS type, Post.content
+      FROM Post
+      INNER JOIN User ON Post.username_id = User.id
+      INNER JOIN Type_of_blog ON Post.typeof_id = Type_of_blog.id';
     if(isset($_SESSION['postFilter'])) {
-      $this->content = $this->fetch($_SESSION['postFilter']);
-    } else {
-      $this->content = $this->fetch('
-        SELECT Post.id, Post.title, User.username, Post.create_date,
-          Type_of_blog.name AS type, Post.content
-          FROM Post
-          INNER JOIN User ON Post.username_id = User.id
-          INNER JOIN Type_of_blog ON Post.username_id = Type_of_blog.id;
-      ');
+      $this->query .= ' ' . $_SESSION['postFilter'];
     }
+    $this->content = $this->fetch($this->query);
     /*
      * Check if the user is logged in
      */
@@ -40,9 +39,11 @@ class Get_posts extends Fetch {
   private function get_title_of_posts() {
     $this->content = $this->fetch('SELECT id, title FROM Post');
     $this->result = '';
+    $i = 0;
     foreach($this->content as $value) {
-      $this->result .= '<a onclick="query_to_PHP(' . $value['id'] . ', \'id\')" ' .
+      $this->result .= '<a onclick="query_to_PHP(' . $i . ', \'id\')" ' .
       'class="px-4 btn btn-sm text-info">' . $value['title'] . '</a><br>';
+      $i++;
     }
     return $this->result;
   }
@@ -57,7 +58,6 @@ class Get_posts extends Fetch {
     foreach($this->content as $value) {
       $value = $value['name'];
       $this->result .= '<a onclick="query_to_PHP(\'' . $value . '\', \'filter\')" ';
-    
       if($i === 0) {
         $this->result .= ' class="px-4 pt-3 btn btn-sm text-info">';
       } else if($i === count($this->content) - 1) {
@@ -65,7 +65,6 @@ class Get_posts extends Fetch {
       } else {
         $this->result .= ' class="px-4 btn btn-sm text-info">';
       }
-
       $this->result .= $value . '</a><br>';
       $i++;
     }
@@ -98,11 +97,11 @@ class Get_posts extends Fetch {
     foreach($this->content as $value) {
       $this->result .=
       '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
-        '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left
+        '<a href="index.php" class="w-100 px-0 py-lg-2 nav-link btn bg-transparent text-left
           text-info">' . $value['title'] . '</a>' .
           '<div class="row px-3 justify-content-between">' .
-            '<p class="col-6 px-0">Written by: ' . $value['username'] . '</p>' .
-            '<p class="col-6 px-0 text-right">' . $value['create_date'] . '</p>' .
+            '<p class="col-6 px-0 text-secondary">Written by: ' . $value['username'] . '</p>' .
+            '<p class="col-6 px-0 text-right text-secondary">' . $value['create_date'] . '</p>' .
           '</div>' .
           '<p>' . $value['content'] . '</p>' .
       '</div>';

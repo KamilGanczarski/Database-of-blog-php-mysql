@@ -11,32 +11,44 @@ class Fetch {
   private $result = [];
 
   public function __construct() {
-    global $conn;
-    $this->conn = $conn;
+    global $Conn;
+    $this->Conn = $Conn;
   }
 
-  private function create_connection($query) {
+  private function check_connection() {
+    if($this->Conn->connect_error) {
+      die('Connection failed: ' . $Conn->connection_error);
+    }
+    $this->result = $this->Conn->query($this->query);
+    return ($this->result) ? true : false;
+  }
+
+  public function fetch($query) {
     $this->query = $query;
-    mysqli_connect_errno()==0 or die('Błąd połączenia z MySQL: "'. mysqli_connect_error(). '".');
-    mysqli_query($this->conn, 'SET NAMES utf8');
-    if(!($this->result = mysqli_query($this->conn, $this->query))) {
-      $this->table_keys = array('Typ błędu', 'Opis błędu');
-      $this->table_data = array(array(
-        'Problem z zapytaniem mysql',
-        'BŁĄD: problem z zapytaniem "'. $this->query. '".'
-      ));
-    } else {
+
+    if($this->check_connection()) {
       $this->query_type = explode(' ', trim($this->query));
       $this->query_type = $this->query_type[0];
-      if($this->query_type === 'SELECT') $this->fetchData();
+      if($this->query_type === 'SELECT') {
+        $this->fetch_data();
+        return $this->result;
+      } else {
+        return 'The query has executed';
+      }
+    } else {
+      $this->result = [[
+        'Type of error' => 'Problem with mysql query',
+        'Error description' => 'Error: problem with query "'. $this->query. '".'
+      ]];
+      return $this->result;
     }
-    // mysqli_close($this->conn);
+    $this->Conn->close();
   }
 
   /*
    * Create an array of objects
    */
-  private function fetchData() {
+  private function fetch_data() {
     if($record = mysqli_fetch_object($this->result)) {
       $this->table_keys = (array) $record;
       $this->table_keys = array_keys($this->table_keys);
@@ -62,10 +74,5 @@ class Fetch {
     } else {
       $this->result = 0;
     }
-  }
-
-  public function fetch($query) {
-    $this->create_connection($query);
-    return $this->result;
   }
 }
