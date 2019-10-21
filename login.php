@@ -39,16 +39,16 @@
 
           <form action='php/login/login.php' method='post' class='col-sm-12 mx-auto'>
             <p class='p-1 m-0 text-muted'>Email</p>
-            <input type='text' name='username' autofocus
+            <input type='text' name='username' id='username' autofocus
               class='mx-auto mb-3 form-control bg-dark border-dark text-light'>
 
             <p class='p-1 m-0 text-muted'>Password</p>
-            <input type='password' name='password'
+            <input type='password' name='password' id='password'
               class='mx-auto form-control bg-dark border-dark text-light'>
 
             <a class='w-100 px-1 mb-2 btn text-left text-info'
               href='login.php'>You forgot password ?</a>
-            <input type='submit' value='Sign in' class='w-100 px-5 my-1 btn btn-info'>
+            <input type='submit' id='submit' value='Sign in' class='w-100 px-5 my-1 btn btn-info'>
 
             <div class='w-100 px-1'>
               <span class='text-muted'>You haven't an account?</span>

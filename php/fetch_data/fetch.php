@@ -1,78 +1,59 @@
 <?php
 
+require_once 'connection.php';
+
 class Fetch {
-  private $query;
-  private $query_type;
-  private $conn;
-  // All keys of object
-  private $table_keys = [];
-  // Content
-  private $table_data = [];
-  private $result = [];
+   private $query;
+   private $query_type;
+   private $Conn;
+   private $statement;
+   // Content
+   private $table_data = [];
 
-  public function __construct() {
-    global $Conn;
-    $this->Conn = $Conn;
-  }
+   public function __construct() {
+      $this->Conn; // Connection to mysql
+   }
 
-  private function check_connection() {
-    if($this->Conn->connect_error) {
-      die('Connection failed: ' . $Conn->connection_error);
-    }
-    $this->result = $this->Conn->query($this->query);
-    return ($this->result) ? true : false;
-  }
-
-  public function fetch($query) {
-    $this->query = $query;
-
-    if($this->check_connection()) {
-      $this->query_type = explode(' ', trim($this->query));
-      $this->query_type = $this->query_type[0];
-      if($this->query_type === 'SELECT') {
-        $this->fetch_data();
-        return $this->result;
-      } else {
-        return 'The query has executed';
+   private function query_to_table() {
+      foreach($this->Conn->query($this->query) as $row) {
+         array_push($this->table_data, $row);
       }
-    } else {
-      $this->result = [[
-        'Type of error' => 'Problem with mysql query',
-        'Error description' => 'Error: problem with query "'. $this->query. '".'
-      ]];
-      return $this->result;
-    }
-    $this->Conn->close();
-  }
+   }
 
-  /*
-   * Create an array of objects
-   */
-  private function fetch_data() {
-    if($record = mysqli_fetch_object($this->result)) {
-      $this->table_keys = (array) $record;
-      $this->table_keys = array_keys($this->table_keys);
-      $this->table_data = array(array_values((array) $record));
-    }
+   private function modify_table() {
+      // $this->query
+      $this->statement = $this->Conn->prepare($this->query);
+      $this->statement->execute();
+      $this->table_data = [[
+         'Type of error' => 'Problem with mysql query',
+         'Error description' => "Error: problem with query $this->query"
+       ]];
+   }
 
-    if($record = mysqli_fetch_all($this->result)) {
-      $this->table_data = array_merge($this->table_data, $record);
-    }
+   public function fetch($query) {
+      global $conn_info;
+      $this->query = $query;
+      try {
+         $this->Conn = new PDO(
+            $conn_info['host_database'],
+            $conn_info['username'],
+            $conn_info['password']);
+         $this->Conn->setAttribute(
+            PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+         $this->Conn->exec('SET CHARSET SET utf8');
 
-    if($this->result->num_rows > 1) {
-      $this->result = [];
-      foreach($this->table_data as $object) {
-        array_push($this->result, array_combine($this->table_keys, $object));
+         $this->query_type = explode(' ', trim($this->query));
+         $this->query_type = $this->query_type[0];
+         if($this->query_type === 'SELECT') {
+            $this->query_to_table();
+         } else {
+            $this->modify_table();
+         }
+         return $this->table_data;
+         $Conn = null;
       }
-    } else if($this->result->num_rows == 1) {
-      $this->result = [];
-      array_push(
-        $this->result,
-        array_combine($this->table_keys, 
-        $this->table_data[0])
-      );
-    } else {
-      $this->result = 0;
-    }
-  }
+      catch(PDOException $e) {
+         $this->table_data = ['Error: ' => $e->getMessage()];
+      }
+   }
 }

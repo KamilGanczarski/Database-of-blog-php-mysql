@@ -51,6 +51,7 @@
               '<span aria-hidden="true" class="pl-2">&times;</span>
             </button>';
           }
+          $Get_posts = new Get_posts();
           echo $Get_posts->return($logged_bool, 'all');
         ?>
       </div>

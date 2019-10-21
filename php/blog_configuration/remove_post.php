@@ -1,6 +1,5 @@
 <?php
 
-require_once '../fetch_data/connection.php';
 require_once '../fetch_data/fetch.php';
 
 $id =  $_GET['id'];

@@ -1,6 +1,5 @@
 <?php
 
-require_once '../fetch_data/connection.php';
 require_once '../fetch_data/fetch.php';
 
 class Add_post extends Fetch {

@@ -1,8 +1,7 @@
 <?php
 
-$host = 'localhost';
-$username = 'root';
-$password = 'admin';
-$database = 'Blog_system';
-// Connection
-$Conn = new mysqli($host, $username, $password, $database);
+$conn_info = [
+   'host_database' => 'mysql:host=localhost;dbname=Blog_system',
+   'username' => 'root',
+   'password' => 'admin'
+];

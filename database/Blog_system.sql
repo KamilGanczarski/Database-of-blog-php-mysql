@@ -69,9 +69,8 @@ INSERT INTO Post(title, username_id, create_date, typeof_id, content) VALUES
 -- SELECT * FROM User;
 -- SELECT * FROM Type_of_blog;
 -- SELECT * FROM Post;
-
-SELECT Post.id, Post.title, Post.username_id, User.username, Post.create_date,
-   Post.typeof_id, Type_of_blog.name, SUBSTRING(Post.content, 1, 20)
-   FROM Post
-   INNER JOIN User ON Post.username_id = User.id
-   INNER JOIN Type_of_blog ON Post.typeof_id = Type_of_blog.id;
+-- SELECT Post.id, Post.title, Post.username_id, User.username, Post.create_date,
+--    Post.typeof_id, Type_of_blog.name, SUBSTRING(Post.content, 1, 20)
+--    FROM Post
+--    INNER JOIN User ON Post.username_id = User.id
+--    INNER JOIN Type_of_blog ON Post.typeof_id = Type_of_blog.id;
