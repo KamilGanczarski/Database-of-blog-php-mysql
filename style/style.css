@@ -10,6 +10,20 @@
   background: #252830;
 }
 
+.navbar_fixed {
+  position: fixed;
+  top: 0;
+  transition: top 0.4s;
+}
+
+.hover-blue {
+  color: #cbd3da;
+}
+
+.hover-blue:hover {
+  color: #03C4EB;
+}
+
 .loginWindowW {
   width: 450px;
 }
@@ -26,6 +40,10 @@
 
 .formSearchInput:focus + .inputWidth {
   width: 240px;
+}
+
+.slider_height {
+  height: 400px;
 }
 
 .lds-dual-ring {

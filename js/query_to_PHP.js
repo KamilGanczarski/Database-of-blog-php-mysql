@@ -10,19 +10,19 @@ function query_to_PHP(item, behaviour) {
   } else if (behaviour === 'filter') {
     // Filter posts
     url = 'php/blog_configuration/sort_posts.php?';
-    query = 'postFilter=' + 'WHERE Type_of_blog.name = \"' + item + '\"&';
-    query += 'postFilterMsg=Filter: ' + item;
+    query = 'search_filter=' + 'WHERE Type_of_blog.name = \"' + item + '\"&';
+    query += 'search_filter_msg=Filter: ' + item;
     window.location.href = url + query;
   } else if (behaviour === 'id') {
     // Filter posts
     url = 'php/blog_configuration/sort_posts.php?';
-    query = 'postFilter=' + 'WHERE Post.id = \'' + item + '\'&';
-    query += 'postFilterMsg=Return to all';
+    query = 'search_filter=' + 'WHERE Post.id = \'' + item + '\'&';
+    query += 'search_filter_msg=Return to all';
     window.location.href = url + query;
   } else if(behaviour === 'sort') {
     // Sort posts
     url = 'php/blog_configuration/sort_posts.php?';
-    query = 'postFilter=' + 'ORDER BY ' + item + ' ASC&';
+    query = 'search_filter=' + 'ORDER BY ' + item + ' ASC&';
 
     switch(item) {
       case 'type':
@@ -39,12 +39,12 @@ function query_to_PHP(item, behaviour) {
         break;
     }
 
-    query += 'postFilterMsg=Sort by: ' + item;
+    query += 'search_filter_msg=Sort by: ' + item;
     window.location.href = url + query;
   } else {
     // Show all
     url = 'php/blog_configuration/sort_posts.php?';
-    query = 'postFilter=' + '';
+    query = 'search_filter=' + '';
     window.location.href = url + query;
   }
 }

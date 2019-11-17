@@ -27,7 +27,7 @@ class Fetch {
       $this->table_data = [[
          'Type of error' => 'Problem with mysql query',
          'Error description' => "Error: problem with query $this->query"
-       ]];
+      ]];
    }
 
    public function fetch($query) {

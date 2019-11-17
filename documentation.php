@@ -7,7 +7,7 @@
   $msg_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $user_id = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
     $logged_bool = true;
   }
 
@@ -25,8 +25,8 @@
   <?php require_once 'php/parts_of_a_website/nav.php'; ?>
 
   <main>
-    <div class='w-100 mx-0 row py-3 justify-content-around bg-gray'>
-      <div class='col-sm-12 col-lg-3 p-4 mt-3 text-left border rounded border-dark bg-navy-blue'>
+    <div class='w-100 mx-0 row justify-content-around bg-gray'>
+      <div class='col-sm-12 col-lg-3 p-4 mb-5 text-left border rounded border-dark bg-navy-blue'>
         <nav class='list-group' id='nav-list'>
           <a class='list-group-item list-group-item-secondary list-group-item-action' href='#list-item-1'>What’s included</a>
           <a class='list-group-item list-group-item-secondary list-group-item-action' href='#list-item-2'>Page views</a>
@@ -34,7 +34,7 @@
         </nav>
       </div>
 
-      <div data-spy='scroll' data-target='#nav-list' data-offset='0' class='col-sm-12 col-lg-8 p-0 mt-3 scrollspy-example'>
+      <div data-spy='scroll' data-target='#nav-list' data-offset='0' class='col-sm-12 col-lg-8 p-0 pb-5 scrollspy-example'>
         <p class='h4 px-3 text-info' id='list-item-1'>What’s included</p>
         <p class='px-3 text-light'>
           You’ll find the following directories and files,
@@ -49,8 +49,8 @@ source/
   ├── js/
   │     ├── auto_sign_out.js
   │     ├── query_to_PHP.js
-  │     ├── resize_page.js
-        └── Statistic_view.js
+  │     ├── page_effects.js
+  │     └── Statistic_view.js
   ├── php/
   │     ├── blog_configuration/
   |     |   ├── add_post.php
@@ -64,9 +64,9 @@ source/
   |     |   ├── login.php
   |     |   └── logout.php
   │     └── parts_of_a_website/
-  |     |   ├── footer.php
-  |     |   ├── head.php
-  |     |   ├── nav.php
+  |         ├── footer.php
+  |         ├── head.php
+  |         ├── nav.php
   |         └── post_sort.php
   ├── style/
   │   └── style.css

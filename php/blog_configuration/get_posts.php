@@ -15,8 +15,8 @@ class Get_posts extends Fetch {
       FROM Post
       INNER JOIN User ON Post.username_id = User.id
       INNER JOIN Type_of_blog ON Post.typeof_id = Type_of_blog.id';
-    if(isset($_SESSION['postFilter'])) {
-      $this->query .= ' ' . $_SESSION['postFilter'];
+    if(isset($_SESSION['search_filter'])) {
+      $this->query .= ' ' . $_SESSION['search_filter'];
     }
     $this->content = $this->fetch($this->query);
     /*
@@ -24,10 +24,8 @@ class Get_posts extends Fetch {
      */
     if($this->content == 0) {
       $this->no_such_posts();
-    } else if($this->logged_bool == true) {
-      $this->editable_blog();
     } else {
-      $this->simple_blog();
+      $this->blog_content();
     }
     return $this->result;
   }
@@ -36,7 +34,7 @@ class Get_posts extends Fetch {
    * Return list of titles of posts
    */
   private function get_title_of_posts() {
-    $this->content = $this->fetch('SELECT id, title FROM Post');
+    $this->content = $this->fetch('SELECT id, title FROM Post LIMIT 8');
     $this->result = '';
     $i = 0;
     foreach($this->content as $row) {
@@ -89,44 +87,27 @@ class Get_posts extends Fetch {
   /*
    * Return simple blog without buttons to remove posts
    */
-  private function simple_blog() {
-    $this->result = '<button class="btn btn-sm btn-dark mx-2 mb-2">' .
+  private function blog_content() {
+    $this->result = '<button class="btn btn-sm btn-info mx-2 mb-2">' .
      '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
     </button>';
     foreach($this->content as $row) {
-      $this->result .=
-      '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
-        '<a href="index.php" class="w-100 px-0 py-lg-2 nav-link btn bg-transparent text-left
-          text-info">' . $row['title'] . '</a>' .
+      $this->result .= '<div class="w-100 p-4 mb-2 text-left text-light border
+        rounded border-dark bg-navy-blue">';
+      /*
+       * Return editable blog with buttons to remove posts
+       */
+      if($this->logged_bool == true) {
+        $this->result .= '<button class="close text-light"
+          onclick="are_you_sure(' . $row['id'] . ', \'remove\')"
+          aria-label="Close" data-toggle="modal" data-target="#sureModal">
+          <span aria-hidden="true">&times;</span></button>';
+      }
+      $this->result .= '<a href="news.php" class="w-100 px-0 py-lg-2 nav-link
+        btn bg-transparent text-left text-info">' . $row['title'] . '</a>' .
           '<div class="row px-3 justify-content-between">' .
             '<p class="col-6 px-0 text-secondary">Written by: ' . $row['username'] . '</p>' .
             '<p class="col-6 px-0 text-right text-secondary">' . $row['create_date'] . '</p>' .
-          '</div>' .
-          '<p>' . $row['content'] . '</p>' .
-      '</div>';
-    }
-    return $this->result;
-  }
-
-  /*
-   * Return editable blog with buttons to remove posts
-   */
-  private function editable_blog() {
-    $this->result = '<button class="btn btn-sm btn-dark mx-2 mb-2">' .
-     '<span aria-hidden="true" class="">Results: ' . count($this->content) . '</span>
-    </button>';
-    foreach($this->content as $row) {
-      $this->result .=
-      '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
-        '<button class="close text-light" onclick="are_you_sure(' . $row['id'] . ', \'remove\')"
-          aria-label="Close" data-toggle="modal" data-target="#sureModal">
-          <span aria-hidden="true">&times;</span>
-        </button>' .
-        '<a href="index.php" class="w-75 px-0 py-lg-2 nav-link btn bg-transparent text-left
-          text-info">' . $row['title'] . '</a>' .
-          '<div class="row px-3 justify-content-between">' .
-            '<p class="col-6 px-0">Written by: ' . $row['username'] . '</p>' .
-            '<p class="col-6 px-0 text-right">' . $row['create_date'] . '</p>' .
           '</div>' .
           '<p>' . $row['content'] . '</p>' .
       '</div>';
@@ -140,7 +121,7 @@ class Get_posts extends Fetch {
   private function no_such_posts() {
     $this->result =
     '<div class="w-100 p-4 mb-2 text-left text-light border rounded border-dark bg-navy-blue">' .
-      '<a href="index.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
+      '<a href="news.php" class="w-50 px-0 py-lg-2 btn nav-link bg-transparent text-left
         text-info">There is no such post you\'re looking for.</a>' .
     '</div>';
     return $this->result;

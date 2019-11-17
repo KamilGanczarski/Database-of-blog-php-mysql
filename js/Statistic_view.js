@@ -220,9 +220,10 @@ class Statistic_view {
 
     for(this.i = 1; this.i < this.data.length; this.i++) {
       if(this.i != this.data.length - 1) {
-        this.content += '<div class="px-3 py-2 text-muted border-bottom border-dark" ' +
+        this.content += '<div class="row mx-0 py-2 text-muted border-bottom border-dark" ' +
           this.get_style_percent(this.data[this.i].x) + '>' +
-            this.data[this.i].label +
+            '<div class="col-sm-10 px-3">' + this.data[this.i].label + '</div>' +
+            '<div class="col-sm-2 px-3 text-right">' + this.data[this.i].x + '</div>' +
           '</div>';
       } else {
         this.content += '<div class="px-3 py-2 text-muted" ' +

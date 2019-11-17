@@ -10,7 +10,7 @@ class Login extends Fetch {
   private $User;
 
   private function correct_login() {
-    $_SESSION['userId'] = $this->User[0]['id'];
+    $_SESSION['user_id'] = $this->User[0]['id'];
     $_SESSION['login'] = $this->User[0]['username'];
     header('Location: ../../index.php');
   }

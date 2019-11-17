@@ -6,7 +6,7 @@
   $msg = '';
   $msg_bool = false;
   if(isset($_SESSION['login'])) {
-    header('Location: index.php');
+    header('Location: news.php');
   }
   if(isset($_SESSION['msg'])) {
     $msg_bool = true;

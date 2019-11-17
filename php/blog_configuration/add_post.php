@@ -13,7 +13,7 @@ class Add_post extends Fetch {
    * Create new row in table 'Blog_content'
    */
   private function create_post() {
-    $this->username_id = $_SESSION["userId"];
+    $this->username_id = $_SESSION["user_id"];
     $this->post_title = nl2br($this->post_title);
     $this->post_content = nl2br($this->post_content);
     $this->query_to_sql = "INSERT INTO Post(title, username_id, create_date, typeof_id, content) VALUES ";
@@ -21,14 +21,15 @@ class Add_post extends Fetch {
     $this->query_to_sql .= "'$this->post_type', '$this->post_content')";
     $this->fetch("$this->query_to_sql");
     unset($_SESSION['msg']);
-    header('Location: ../../index.php');
+    header('Location: ../../news.php');
   }
 
   /*
    * Return to create post page with error message
    */
   private function denial_create_post() {
-    $_SESSION['msg'] = 'Incorrent post title or content or you did\'t set a type';
+    $_SESSION['msg'] = 'Incorrent post title or content.
+      Maybe you did\'t set a type';
     header('Location: ../../add_post.php');
   }
 

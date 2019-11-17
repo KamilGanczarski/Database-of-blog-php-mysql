@@ -5,7 +5,7 @@
   $logged_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $user_id = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
     $logged_bool = true;
   }
 ?>

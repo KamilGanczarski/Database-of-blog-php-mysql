@@ -1,14 +1,14 @@
 <?php
 
 session_start();
-$post_filter = $_GET['postFilter'];
-$post_filter_msg = $_GET['postFilterMsg'];
-$search_value = $_GET['searchValue'];
+$search_filter = $_GET['search_filter'];
+$search_filter_msg = $_GET['search_filter_msg'];
+$search_value = $_GET['search_value'];
 
-if($post_filter == 'form') {
-  $post_filter = "WHERE Post.content LIKE '%$search_value%'";
+if($search_filter == 'form') {
+  $search_filter = "WHERE Post.content LIKE '%$search_value%'";
 }
-$_SESSION['postFilter'] = $post_filter;
-$_SESSION['postFilterMsg'] = $post_filter_msg;
-$_SESSION['searchValue'] = $search_value;
-header('Location: ../../index.php');
+$_SESSION['search_filter'] = $search_filter;
+$_SESSION['search_filter_msg'] = $search_filter_msg;
+$_SESSION['search_value'] = $search_value;
+header('Location: ../../news.php');

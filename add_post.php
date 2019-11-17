@@ -7,7 +7,7 @@
   $msg_bool = false;
   if(isset($_SESSION['login'])) {
     $username = $_SESSION['login'];
-    $user_id = $_SESSION['userId'];
+    $user_id = $_SESSION['user_id'];
     $logged_bool = true;
   } else {
     header('Location: index.php');
@@ -27,7 +27,7 @@
   <?php require_once 'php/parts_of_a_website/nav.php'; ?>
 
   <main class='bg-gray'>
-    <div class="px-4 pt-4 mx-0 <?php echo ($msg_bool) ? 'd-block' : 'd-none'; ?>">
+    <div class="px-4 mx-0 <?php echo ($msg_bool) ? 'd-block' : 'd-none'; ?>">
       <div class='w-50 alert alert-danger alert-dismissible fade show text-left mx-auto my-0' role='alert'>
         <?php echo ($msg_bool) ? $msg : ''; ?>
         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class='w-100 px-lg-4 py-4 mx-0 row justify-content-around'>
+    <div class='w-100 px-lg-4 py-4 mx-0 pb-5 row justify-content-around'>
       <div class='col-sm-12 bg-navy-blue p-4'>
         <p class='h5 text-info'>Create post</p>
 
